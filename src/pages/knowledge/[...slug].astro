@@ -81,10 +81,13 @@ if (d.faq.length) {
 </Base>
 
 <style>
-  .post-head { max-width: 760px; }
+  /* บทความกว้างเต็มความกว้างเว็บ (เท่ากับแถบเมนู) */
+  .prose { max-width: none; }
   .tag { text-decoration: none; margin-bottom: 12px; }
   .meta { color: var(--muted); font-size: 0.95rem; }
-  .cover { width: 100%; max-width: 760px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); margin: 8px 0 32px; }
+  /* รูปปกบนคอมกว้าง 75% ของหน้า บนมือถือเต็มจอ */
+  .cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); margin: 8px 0 32px; }
+  @media (min-width: 900px) { .cover { width: 75%; aspect-ratio: 13 / 6; } }
   .faq details { border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; background: #fff; }
   .faq summary { cursor: pointer; font-weight: 600; color: var(--primary); }
   .faq details p { margin: 10px 0 0; }
