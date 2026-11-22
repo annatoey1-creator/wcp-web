@@ -4,7 +4,7 @@ import { site, lineLink } from '../data/site';
 const c = site.contact;
 ---
 <div class="sticky-contact" role="complementary" aria-label="ติดต่อด่วน">
-  <a class:list={['line', { missing: !c.lineOaId && !c.lineAddUrl }]} href={lineLink('สนใจสอบถามสินค้า')} rel="noopener" title={c.lineOaId || c.lineAddUrl ? undefined : 'รอ LINE OA จริง'}>ทัก LINE</a>
+  <a class:list={['line', { missing: !c.lineOaId && !c.lineAddUrl }]} href={lineLink('สนใจสอบถามสินค้า')} target="_blank" rel="noopener noreferrer" title={c.lineOaId || c.lineAddUrl ? undefined : 'รอ LINE OA จริง'}>ทัก LINE</a>
   <a class="call" href={c.phoneHref}>โทรฝ่ายขาย</a>
 </div>
 <style>

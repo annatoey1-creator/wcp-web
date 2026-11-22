@@ -29,11 +29,11 @@ const c = site.contact;
       <h2>ติดต่อฝ่ายขาย</h2>
       <ul>
         <li>โทร: <a href={c.phoneHref}><Fact f={c.phone} /></a></li>
-        <li><a href={lineLink()} rel="noopener">LINE ฝ่ายขาย</a></li>
+        <li><a href={lineLink()} target="_blank" rel="noopener noreferrer">LINE ฝ่ายขาย</a></li>
         <li>อีเมล: <Fact f={c.email} /></li>
         <li><a href={c.facebook.value} rel="noopener">Facebook</a></li>
       </ul>
-      <a class="btn btn-line btn-sm" href={lineLink("สนใจขอใบเสนอราคาถุงขยะ")} rel="noopener">ทัก LINE ขอใบเสนอราคา</a>
+      <a class="btn btn-line btn-sm" href={lineLink("สนใจขอใบเสนอราคาถุงขยะ")} target="_blank" rel="noopener noreferrer">ทัก LINE ขอใบเสนอราคา</a>
     </div>
   </div>
   <div class="wrap copy">© {new Date().getFullYear()} {site.brand}</div>

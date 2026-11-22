@@ -42,7 +42,7 @@ const ld = {
           </ul>
           <p><strong>เหมาะกับ:</strong> {p.audience}</p>
           <div class="btn-row">
-            <a class="btn btn-line" href={lineLink(`สนใจขอใบเสนอราคา ${p.name}`)} rel="noopener">ทัก LINE ขอราคาสินค้านี้</a>
+            <a class="btn btn-line" href={lineLink(`สนใจขอใบเสนอราคา ${p.name}`)} target="_blank" rel="noopener noreferrer">ทัก LINE ขอราคาสินค้านี้</a>
             {p.specSheet
               ? <a class="btn btn-outline" href={p.specSheet} download>ดาวน์โหลด Spec Sheet (PDF)</a>
               : <span class="btn btn-outline" aria-disabled="true" title="ยังไม่มีไฟล์ PDF">Spec Sheet PDF (เร็วๆ นี้)</span>}
