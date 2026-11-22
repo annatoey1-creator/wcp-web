@@ -27,13 +27,13 @@ const tips = [
     <div class="wrap layout">
       <div class="line-card" id="line">
         <h2>ทัก LINE ฝ่ายขาย</h2>
-        <p class="sub">LINE ID: <Fact f={c.lineId} /></p>
+        <p class="sub">สแกน QR code หรือกดปุ่มด้านล่าง เพื่อเพิ่มเพื่อนและเริ่มแชต</p>
         {c.lineQr
           ? <img class="qr" src={c.lineQr} alt="QR code สำหรับเพิ่มเพื่อน LINE ฝ่ายขาย" width="220" height="220" />
           : <div class="qr qr-todo"><mark class="todo">[QR code LINE OA]</mark></div>}
         <a class="btn btn-line big" href={lineLink('สนใจขอใบเสนอราคาถุงขยะ')} rel="noopener">ทัก LINE คุยกับฝ่ายขาย</a>
         <a class="btn btn-outline big" href={c.phoneHref}>หรือโทร <Fact f={c.phone} /></a>
-        {!c.lineOaId && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>รอ LINE OA ID จริง (ตั้งค่าที่ src/data/site.ts → contact.lineOaId) ตอนนี้ปุ่ม LINE ทุกปุ่มจะพามาที่หน้านี้</span></p>}
+        {!c.lineOaId && !c.lineAddUrl && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>รอ LINE OA ID จริง (ตั้งค่าที่ src/data/site.ts → contact.lineOaId) ตอนนี้ปุ่ม LINE ทุกปุ่มจะพามาที่หน้านี้</span></p>}
 
         <h3>แจ้งข้อมูลนี้ในแชต จะได้ราคาเร็วขึ้น</h3>
         <ul class="checklist">{tips.map((t) => <li>{t}</li>)}</ul>
@@ -43,7 +43,7 @@ const tips = [
         <h2>ข้อมูลติดต่อ</h2>
         <ul>
           <li><strong>โทร</strong><a href={c.phoneHref}><Fact f={c.phone} /></a></li>
-          <li><strong>LINE OA</strong><Fact f={c.lineId} /></li>
+          <li><strong>LINE</strong><a href={lineLink()} rel="noopener">เพิ่มเพื่อน LINE ฝ่ายขาย</a></li>
           <li><strong>อีเมล</strong><Fact f={c.email} /></li>
           <li><strong>เวลาทำการ</strong><Fact f={c.hours} /></li>
         </ul>

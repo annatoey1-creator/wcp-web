@@ -28,7 +28,7 @@ const org = {
   telephone: verified(site.contact.phone),
   email: verified(site.contact.email),
   address: verified(site.contact.address),
-  sameAs: [verified(site.contact.facebook), site.contact.lineOaId ? `https://line.me/R/ti/p/${encodeURIComponent(site.contact.lineOaId)}` : undefined].filter(Boolean),
+  sameAs: [verified(site.contact.facebook), site.contact.lineAddUrl || undefined].filter(Boolean),
 };
 const extra = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---

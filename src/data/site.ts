@@ -19,11 +19,15 @@ export const verified = (f: Fact): string | undefined => (f.ok ? f.value : undef
 
 // ลูกค้าติดต่อผ่าน LINE OA เท่านั้น (ไม่มีแบบฟอร์ม) ปุ่มทุกปุ่มใช้ฟังก์ชันนี้
 // ใส่ message เพื่อให้แชตมีข้อความพิมพ์ไว้ให้ลูกค้ากดส่งได้ทันที
+// (ข้อความพิมพ์ไว้ให้ใช้ได้เฉพาะเมื่อมี lineOaId แบบ @ ถ้ามีแค่ลิงก์เพิ่มเพื่อน จะเปิดหน้าเพิ่มเพื่อนแทน)
 export function lineLink(message?: string): string {
-  const id = site.contact.lineOaId;
-  if (!id) return '/contact#line'; // ยังไม่มี LINE OA ส่งไปหน้าติดต่อก่อน
-  const base = `https://line.me/R/oaMessage/${encodeURIComponent(id)}/`;
-  return message ? `${base}?${encodeURIComponent(message)}` : base;
+  const { lineOaId: id, lineAddUrl } = site.contact;
+  if (id) {
+    const base = `https://line.me/R/oaMessage/${encodeURIComponent(id)}/`;
+    return message ? `${base}?${encodeURIComponent(message)}` : base;
+  }
+  if (lineAddUrl) return lineAddUrl;
+  return '/contact#line'; // ยังไม่มีข้อมูล LINE ส่งไปหน้าติดต่อก่อน
 }
 
 export const site = {
@@ -39,10 +43,11 @@ export const site = {
   contact: {
     phone: unconfirmed('061-968-2828', 'จากสไลด์เดิม'),
     phoneHref: 'tel:+66619682828',
-    lineId: todo('LINE OA'),
     // LINE OA ID ขึ้นต้นด้วย @ เช่น '@worldclassplastic' ใส่แล้วปุ่ม LINE ทุกปุ่มจะเปิดแชตพร้อมข้อความให้เอง
     lineOaId: '',
-    lineQr: '', // รูป QR code ของ LINE OA เช่น '/images/brand/line-qr.png'
+    // ลิงก์เพิ่มเพื่อน LINE ถอดจาก QR code ที่เจ้าของส่งมา (inbox\picture\line.jpg) 2026-11-22
+    lineAddUrl: 'https://line.me/ti/p/mVLJ2wja5-',
+    lineQr: '/images/brand/line-qr.jpg',
     email: todo('อีเมลฝ่ายขาย'),
     address: todo('ที่อยู่โรงงาน'),
     taxId: todo('เลขประจำตัวผู้เสียภาษี'),

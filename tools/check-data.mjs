@@ -21,7 +21,7 @@ function walk(value, path) {
 
 walk(site, 'site');
 walk(products, 'products');
-if (!site.contact.lineOaId) issues.push('site.contact.lineOaId: ยังไม่มี LINE OA ID (ปุ่ม LINE ทุกปุ่มยังเปิดแชตไม่ได้)');
+if (!site.contact.lineOaId && !site.contact.lineAddUrl) issues.push('site.contact.lineAddUrl: ยังไม่มีลิงก์ LINE (ปุ่ม LINE ทุกปุ่มยังเปิดแชตไม่ได้)');
 if (!site.contact.lineQr) issues.push('site.contact.lineQr: ยังไม่มีรูป QR code LINE OA');
 if (!site.contact.mapsEmbedUrl) issues.push('site.contact.mapsEmbedUrl: ยังไม่มีแผนที่');
 

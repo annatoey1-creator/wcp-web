@@ -25,6 +25,7 @@ function Save-Jpeg($bmp, $relPath) {
 $jobs = @(
   @('brand/logo-mark.jpg',      'logo.jpg', 250, 185, 480, 490, 240),
   @('brand/logo-full.jpg',      'logo.jpg', 120, 170, 720, 620, 480),
+  @('brand/line-qr.jpg',        'line.jpg',   0,   0, 574, 574, 574),
 
   @('factory/film-roll.jpg',    '1.png',   1105, 205, 510, 510, 900),
   @('factory/production-line.jpg','3.png', 1290,   0, 630,1080, 900),
