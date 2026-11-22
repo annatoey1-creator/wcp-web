@@ -13,7 +13,7 @@ interface Props {
   jsonLd?: object | object[];
 }
 const { title, description, image = '/images/factory/production-line.jpg', type = 'website', jsonLd } = Astro.props;
-const fullTitle = Astro.url.pathname === '/' ? title : `${title} | ${site.brand}`;
+const fullTitle = title.includes(site.brand) ? title : `${title} | ${site.brand}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL(image, site.url).href;
 
