@@ -11,30 +11,46 @@ import { products } from '../data/products';
 const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 3);
+
+// ภาพสไลด์ใน hero เปลี่ยนอัตโนมัติทุก 5 วินาที
+const heroSlides = [
+  { src: '/images/factory/production-line.jpg', alt: 'สายการผลิตถุงพลาสติกในโรงงาน' },
+  { src: '/images/gallery/packed-3.jpg', alt: 'ถุงขยะแพ็กพร้อมส่ง' },
+  { src: '/images/factory/film-roll.jpg', alt: 'ม้วนฟิล์มพลาสติกในเครื่องผลิต' },
+];
 ---
 <Base
   title="World Class Plastic โรงงานผลิตและขายส่งถุงขยะ B2B รับผลิต OEM"
   description="โรงงานผลิตและขายส่งถุงขยะสำหรับองค์กร ถุงขยะติดเชื้อสีแดง ถุงขยะรีไซเคิล ถุงดำงานหนัก ถุงแยกสี และรับสร้างแบรนด์ถุงขยะ OEM ครบวงจร ขอใบเสนอราคาและชุดตัวอย่างได้"
 >
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">โรงงานผู้ผลิต · ขายส่ง · OEM</span>
-        <h1>โรงงานผลิตและขายส่งถุงขยะ B2B ครบวงจร รับสร้างแบรนด์ OEM</h1>
-        <p class="lead">
-          กำลังผลิต <Fact f={site.stats[0].fact} /> สต็อกพร้อมส่ง จัดส่งทั่วประเทศและชายแดน
-          สำหรับโรงพยาบาล บริษัททำความสะอาด โรงงาน และเจ้าของแบรนด์
-        </p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="/contact#quote-form">ขอใบเสนอราคาองค์กร</a>
-          <a class="btn btn-light" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี (B2B Sample Kit)</a>
-        </div>
+  <section class="hero" aria-label="แนะนำบริษัท">
+    {heroSlides.map((s, i) => (
+      <img class:list={['slide', { active: i === 0 }]} src={s.src} alt={i === 0 ? s.alt : ''} width="1280" height="720"
+        fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+    ))}
+    <div class="wrap hero-text">
+      <span class="eyebrow">World Class Plastic Co.,Ltd.</span>
+      <h1>โรงงานผลิตและขายส่งถุงขยะ B2B<span>ครบวงจร รับสร้างแบรนด์ OEM</span></h1>
+      <p class="lead">
+        กำลังผลิต <Fact f={site.stats[0].fact} /> สต็อกพร้อมส่ง จัดส่งทั่วประเทศและชายแดน
+        สำหรับโรงพยาบาล บริษัททำความสะอาด โรงงาน และเจ้าของแบรนด์
+      </p>
+      <ul class="badges">
+        <li>✓ รับผลิต OEM สร้างแบรนด์</li>
+        <li>✓ สต็อกพร้อมส่ง</li>
+        <li>✓ ส่งทั่วไทยและชายแดน</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact#quote-form">ขอใบเสนอราคาองค์กร</a>
+        <a class="btn btn-ghost" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี (B2B Sample Kit)</a>
       </div>
-      <img src="/images/factory/production-line.jpg" alt="สายการผลิตถุงพลาสติกในโรงงาน" width="900" height="1543" fetchpriority="high" />
+    </div>
+    <div class="dots" role="group" aria-label="เลือกภาพ">
+      {heroSlides.map((_, i) => <button type="button" class:list={{ active: i === 0 }} aria-label={`ภาพที่ ${i + 1}`}></button>)}
     </div>
   </section>
 
-  <section class="stats" aria-label="กำลังการผลิต">
+  <section class="stats-wrap" aria-label="กำลังการผลิต">
     <div class="wrap grid grid-3">
       {site.stats.map((s) => (
         <div class="stat">
@@ -69,7 +85,7 @@ const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
           <li>แบบม้วนหรือแบบพับ หูผูก กลิ่นหอม</li>
           <li>ขั้นต่ำยืดหยุ่นสำหรับผู้เริ่มต้น</li>
         </ul>
-        <a class="btn btn-navy" href="/oem">ดูขั้นตอนรับผลิต OEM</a>
+        <a class="btn btn-dark" href="/oem">ดูขั้นตอนรับผลิต OEM</a>
       </div>
     </div>
   </section>
@@ -104,18 +120,50 @@ const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
   <div class="wrap"><CtaSample /></div>
 </Base>
 
-<style>
-  .hero { background: linear-gradient(135deg, var(--navy) 0%, #0f2240 60%, #16365f 100%); color: #dbe5f2; padding-block: clamp(40px, 7vw, 88px); overflow: hidden; }
-  .hero-grid { display: grid; gap: 32px; align-items: center; }
-  .hero h1 { color: #fff; }
-  .hero .eyebrow { color: #7fd1a6; }
-  .lead { font-size: 1.15rem; max-width: 620px; margin-bottom: 28px; }
-  .hero img { border-radius: var(--radius); max-height: 420px; width: 100%; object-fit: cover; }
-  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.2fr 1fr; } }
+<script>
+  const hero = document.querySelector('.hero');
+  const slides = hero ? [...hero.querySelectorAll<HTMLElement>('.slide')] : [];
+  const dots = hero ? [...hero.querySelectorAll<HTMLButtonElement>('.dots button')] : [];
+  let current = 0;
+  let timer: number | undefined;
+  const show = (i: number) => {
+    slides[current]?.classList.remove('active');
+    dots[current]?.classList.remove('active');
+    current = (i + slides.length) % slides.length;
+    slides[current]?.classList.add('active');
+    dots[current]?.classList.add('active');
+  };
+  const start = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || slides.length < 2) return;
+    clearInterval(timer);
+    timer = window.setInterval(() => show(current + 1), 5000);
+  };
+  dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
+  start();
+</script>
 
-  .stats { background: var(--green); color: #e8f6ee; padding-block: 28px; }
-  .stat { display: grid; gap: 2px; text-align: center; }
-  .stat strong { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem); color: #fff; line-height: 1.2; }
+<style>
+  .hero { position: relative; min-height: min(80vh, 640px); display: flex; align-items: center; color: #fff; overflow: hidden; background: var(--primary-900); }
+  .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
+  .slide.active { opacity: 1; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(6 45 22 / 0.92) 0%, rgb(6 45 22 / 0.7) 50%, rgb(6 45 22 / 0.2) 100%); }
+  @media (max-width: 799px) { .hero::after { background: rgb(6 45 22 / 0.82); } }
+  .hero-text { position: relative; z-index: 2; padding-block: 64px 72px; }
+  .hero-text > * { max-width: 640px; }
+  .hero .eyebrow { color: var(--gold-soft); }
+  .hero h1 { color: #fff; font-size: clamp(2rem, 1.3rem + 3.4vw, 3.6rem); line-height: 1.25; }
+  .hero h1 span { display: block; font-size: 0.55em; color: #bfe8cc; font-weight: 500; margin-top: 6px; }
+  .lead { font-size: 1.15rem; color: #e2f1e7; margin: 16px 0 20px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 28px; }
+  .badges li { background: var(--gold-soft); color: var(--on-gold); border-radius: 999px; padding: 4px 14px; font-size: 0.9rem; font-weight: 600; font-family: var(--font-head); }
+  .dots { position: absolute; z-index: 3; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+  .dots button { width: 10px; height: 10px; border-radius: 5px; border: 0; padding: 0; background: rgb(255 255 255 / 0.45); cursor: pointer; transition: width 0.2s; }
+  .dots button.active { background: #fff; width: 28px; }
+
+  .stats-wrap { padding-block: 40px 0; }
+  .stat { display: grid; gap: 2px; text-align: center; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 16px; }
+  .stat strong { font-family: var(--font-head); font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem); color: var(--green); line-height: 1.2; font-weight: 600; }
+  .stat span { font-size: 0.92rem; color: var(--muted); }
 
   .oem { display: grid; gap: 32px; align-items: center; }
   .oem img { border-radius: var(--radius); box-shadow: var(--shadow); }
@@ -124,5 +172,5 @@ const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
 
   .certs { list-style: none; padding: 0; margin: 0; }
   .certs li { display: grid; gap: 6px; padding: 20px; border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--radius); background: #fff; }
-  .certs strong { color: var(--navy); }
+  .certs strong { color: var(--primary); }
 </style>

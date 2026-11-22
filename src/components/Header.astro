@@ -10,11 +10,20 @@ const nav = [
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="slogan">To be one of the best Thai plastic recycle</span>
+    <span class="links">
+      <a href={site.contact.facebook.value} rel="noopener">Facebook</a>
+      <a href={site.contact.phoneHref}>โทร {site.contact.phone.value}</a>
+    </span>
+  </div>
+</div>
 <header class="site-header">
   <div class="wrap bar">
     <a class="logo" href="/" aria-label={`${site.brand} หน้าแรก`}>
-      <img src="/images/brand/logo-mark.jpg" alt="" width="44" height="44" />
-      <span>World Class<br /><strong>Plastic</strong></span>
+      <img src="/images/brand/logo-mark.jpg" alt="" width="48" height="48" />
+      <span><strong>World Class Plastic</strong><small>บจก.เวิลด์คลาสพลาสติก</small></span>
     </a>
     <nav class="desktop-nav" aria-label="เมนูหลัก">
       {nav.map((n) => <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>)}
@@ -33,16 +42,24 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
 <style>
   .site-header { position: sticky; top: 0; z-index: 50; background: rgb(255 255 255 / 0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
   .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); line-height: 1.1; font-size: 0.95rem; }
-  .logo img { border-radius: 8px; }
-  .logo strong { font-size: 1.15rem; }
+  .topbar { background: var(--primary); color: #d5eadc; font-size: 0.85rem; }
+  .topbar-in { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 34px; }
+  .topbar .links { display: flex; gap: 18px; flex-shrink: 0; }
+  .topbar a { color: inherit; text-decoration: none; }
+  .topbar a:hover { color: #fff; }
+  @media (max-width: 599px) { .slogan { display: none; } .topbar-in { justify-content: flex-end; } }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; line-height: 1.2; }
+  .logo img { border-radius: 50%; }
+  .logo span { display: grid; }
+  .logo strong { font-family: var(--font-head); font-weight: 600; font-size: 1.15rem; color: var(--primary); }
+  .logo small { font-size: 0.8rem; color: var(--muted); }
   .desktop-nav { display: none; align-items: center; gap: 22px; }
   .desktop-nav a:not(.btn) { color: var(--slate); text-decoration: none; font-weight: 500; font-size: 0.98rem; }
   .desktop-nav a[aria-current='page'] { color: var(--green); }
   .desktop-nav a:not(.btn):hover { color: var(--green); }
   .mobile-nav summary { list-style: none; cursor: pointer; display: grid; gap: 5px; padding: 12px; }
   .mobile-nav summary::-webkit-details-marker { display: none; }
-  .mobile-nav summary span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+  .mobile-nav summary span { display: block; width: 24px; height: 2px; background: var(--primary); border-radius: 2px; }
   .mobile-nav nav { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow); display: grid; padding: 8px 16px 16px; }
   .mobile-nav nav a:not(.btn) { padding: 12px 4px; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--gray-100); }
   .mobile-nav nav .btn { margin-top: 12px; }

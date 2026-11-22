@@ -1,24 +1,29 @@
-/* โทนสีหลักของเว็บ แก้สีที่นี่ที่เดียว */
+/* โทนสีหลักของเว็บ แก้สีที่นี่ที่เดียว (ธีมเขียวเข้ม + ทอง ตาม mockup v1) */
 :root {
-  --navy: #13294b;
-  --navy-700: #1d3a66;
-  --slate: #1e293b;
-  --green: #1f7a4d;
-  --green-50: #eaf5ef;
-  --red: #c62828;
+  --primary: #0b5a2a;      /* เขียวเข้ม: หัวข้อ แถบบน ปุ่มรอง */
+  --primary-700: #13803d;  /* เขียวกลาง: hover ลิงก์ */
+  --primary-900: #063a1b;  /* เขียวเข้มสุด: footer */
+  --slate: #17241c;
+  --green: #13803d;
+  --green-50: #f3f7f4;
+  --gold: #c9a227;         /* ทอง: eyebrow */
+  --gold-soft: #f6c624;    /* เหลืองทอง: ปุ่มหลัก ป้าย */
+  --on-gold: #2b2300;
+  --red: #c62828;          /* แดง: เฉพาะถุงขยะติดเชื้อ */
   --red-50: #fdecec;
   --bg: #ffffff;
-  --gray-50: #f5f7fa;
-  --gray-100: #eceff3;
-  --border: #dde3ea;
-  --text: #1f2937;
-  --muted: #5b6575;
+  --gray-50: #f3f7f4;
+  --gray-100: #e8efe9;
+  --border: #dfe8e2;
+  --text: #17241c;
+  --muted: #5a6a60;
   --todo-bg: #fff4c2;
   --todo-border: #e5b800;
   --radius: 12px;
   --shadow: 0 1px 2px rgb(15 23 42 / 0.06), 0 4px 16px rgb(15 23 42 / 0.06);
   --wrap: 1160px;
-  --font: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --font: 'Sarabun', system-ui, sans-serif;
+  --font-head: 'Prompt', system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -32,8 +37,9 @@ body {
   line-height: 1.75;
 }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--navy-700); }
-h1, h2, h3, h4 { color: var(--navy); line-height: 1.35; margin: 0 0 0.6em; font-weight: 700; }
+a { color: var(--primary-700); }
+h1, h2, h3, h4 { color: var(--primary); line-height: 1.35; margin: 0 0 0.6em; font-weight: 600; font-family: var(--font-head); }
+.btn, th, legend, .eyebrow { font-family: var(--font-head); }
 h1 { font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem); }
 h2 { font-size: clamp(1.4rem, 1.1rem + 1.3vw, 2rem); }
 h3 { font-size: 1.2rem; }
@@ -44,7 +50,7 @@ p { margin: 0 0 1em; }
 .section.alt { background: var(--gray-50); }
 .section-head { max-width: 720px; margin-bottom: 32px; }
 .section-head p { color: var(--muted); }
-.eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--green); letter-spacing: 0.02em; margin-bottom: 8px; }
+.eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
 
 .grid { display: grid; gap: 20px; }
 @media (min-width: 640px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); } }
@@ -56,13 +62,15 @@ p { margin: 0 0 1em; }
 .card img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; background: var(--gray-100); }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 22px; border-radius: 10px; font: inherit; font-weight: 600; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: background 0.15s, color 0.15s; }
-.btn-primary { background: var(--red); color: #fff; }
-.btn-primary:hover { background: #a91f1f; }
-.btn-navy { background: var(--navy); color: #fff; }
-.btn-navy:hover { background: var(--navy-700); }
-.btn-outline { border-color: currentColor; color: var(--navy); background: transparent; }
+.btn-primary { background: var(--gold-soft); color: var(--on-gold); }
+.btn-primary:hover { background: #e3b411; }
+.btn-ghost { border-color: #fff; color: #fff; background: transparent; }
+.btn-ghost:hover { background: #fff; color: var(--primary); }
+.btn-dark { background: var(--primary); color: #fff; }
+.btn-dark:hover { background: var(--primary-700); }
+.btn-outline { border-color: currentColor; color: var(--primary); background: transparent; }
 .btn-outline:hover { background: var(--gray-100); }
-.btn-light { background: #fff; color: var(--navy); }
+.btn-light { background: #fff; color: var(--primary); }
 .btn-sm { min-height: 40px; padding: 6px 14px; font-size: 0.95rem; }
 .btn[aria-disabled='true'] { opacity: 0.55; pointer-events: none; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -76,9 +84,9 @@ p { margin: 0 0 1em; }
 /* ตาราง: บนมือถือเลื่อนแนวนอนได้ในกล่อง หน้าเว็บไม่ล้น */
 .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; }
 table { width: 100%; border-collapse: collapse; font-size: 0.98rem; min-width: 480px; }
-caption { text-align: left; padding: 14px 16px; font-weight: 700; color: var(--navy); }
+caption { text-align: left; padding: 14px 16px; font-weight: 700; color: var(--primary); }
 th, td { padding: 12px 16px; text-align: left; border-top: 1px solid var(--border); white-space: nowrap; }
-thead th { background: var(--navy); color: #fff; font-weight: 600; border-top: 0; }
+thead th { background: var(--primary); color: #fff; font-weight: 600; border-top: 0; }
 tbody tr:nth-child(even) { background: var(--gray-50); }
 
 /* ข้อมูลที่ยังไม่ยืนยัน */
@@ -93,7 +101,7 @@ tbody tr:nth-child(even) { background: var(--gray-50); }
 .prose .table-wrap, .prose table { margin-bottom: 1.5em; }
 .prose > table { display: block; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
 
-.page-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-700) 100%); color: #e8eef7; padding-block: clamp(40px, 6vw, 72px); }
+.page-hero { background: linear-gradient(90deg, rgb(6 45 22 / 0.97) 0%, rgb(11 90 42 / 0.92) 100%), url(/images/factory/film-roll.jpg) center / cover; color: #e2f1e7; padding-block: clamp(40px, 6vw, 72px); }
 .page-hero h1 { color: #fff; margin-bottom: 0.3em; }
 .page-hero p { max-width: 720px; font-size: 1.1rem; margin: 0; }
 
@@ -107,5 +115,5 @@ tbody tr:nth-child(even) { background: var(--gray-50); }
 
 .cats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
 .cats a { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); text-decoration: none; color: var(--slate); background: #fff; font-size: 0.95rem; }
-.cats a[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.cats a[aria-current='page'] { background: var(--primary); border-color: var(--primary); color: #fff; }
 .visually-hidden:focus { position: fixed; top: 8px; left: 8px; width: auto; height: auto; clip: auto; z-index: 100; background: #fff; padding: 8px 16px; border-radius: 8px; }

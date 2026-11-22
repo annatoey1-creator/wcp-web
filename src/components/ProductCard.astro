@@ -9,7 +9,7 @@ const { p } = Astro.props;
     <h3><a href={`/products/${p.slug}`}>{p.name}</a></h3>
     <p>{p.short}</p>
     <div class="btn-row" style="margin-top:auto;padding-top:12px">
-      <a class="btn btn-navy btn-sm" href={`/products/${p.slug}`}>ดูสเปก</a>
+      <a class="btn btn-dark btn-sm" href={`/products/${p.slug}`}>ดูสเปก</a>
       {p.specSheet
         ? <a class="btn btn-outline btn-sm" href={p.specSheet} download>ดาวน์โหลดตาราง</a>
         : <span class="btn btn-outline btn-sm" aria-disabled="true" title="ยังไม่มีไฟล์ PDF">ตาราง PDF (เร็วๆ นี้)</span>}
@@ -17,7 +17,7 @@ const { p } = Astro.props;
   </div>
 </article>
 <style>
-  .product-card { --accent: var(--navy); position: relative; }
+  .product-card { --accent: var(--primary); position: relative; }
   .product-card::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: var(--accent); }
   .accent-red { --accent: var(--red); }
   .accent-green { --accent: var(--green); }
