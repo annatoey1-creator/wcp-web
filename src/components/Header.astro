@@ -6,6 +6,7 @@ const nav = [
   { href: '/export', label: 'ส่งออกชายแดน' },
   { href: '/knowledge', label: 'คลังความรู้' },
   { href: '/about', label: 'เกี่ยวกับเรา' },
+  { href: '/contact', label: 'ติดต่อเรา' },
 ];
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(href + '/');
@@ -54,6 +55,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   .logo strong { font-family: var(--font-head); font-weight: 600; font-size: 1.15rem; color: var(--primary); }
   .logo small { font-size: 0.8rem; color: var(--muted); }
   .desktop-nav { display: none; align-items: center; gap: 22px; }
+  .desktop-nav a { white-space: nowrap; }
   .desktop-nav a:not(.btn) { color: var(--slate); text-decoration: none; font-weight: 500; font-size: 0.98rem; }
   .desktop-nav a[aria-current='page'] { color: var(--green); }
   .desktop-nav a:not(.btn):hover { color: var(--green); }
@@ -63,5 +65,5 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   .mobile-nav nav { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow); display: grid; padding: 8px 16px 16px; }
   .mobile-nav nav a:not(.btn) { padding: 12px 4px; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--gray-100); }
   .mobile-nav nav .btn { margin-top: 12px; }
-  @media (min-width: 1000px) { .desktop-nav { display: flex; } .mobile-nav { display: none; } }
+  @media (min-width: 1100px) { .desktop-nav { display: flex; } .mobile-nav { display: none; } }
 </style>
