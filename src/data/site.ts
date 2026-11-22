@@ -45,7 +45,8 @@ export const site = {
     phoneHref: 'tel:+66619682828',
     // LINE OA ID ขึ้นต้นด้วย @ เช่น '@worldclassplastic' ใส่แล้วปุ่ม LINE ทุกปุ่มจะเปิดแชตพร้อมข้อความให้เอง
     lineOaId: '',
-    // ลิงก์เพิ่มเพื่อน LINE ถอดจาก QR code ที่เจ้าของส่งมา (inbox\picture\line.jpg) 2026-11-22
+    // ลิงก์เพิ่มเพื่อน LINE ส่วนตัวของฝ่ายขาย (ยังไม่ใช่ LINE OA) เจ้าของยืนยัน 2026-11-22
+    // ถ้าเปลี่ยนเป็น LINE OA ภายหลัง ให้ใส่ lineOaId แทน ปุ่มจะพิมพ์ข้อความไว้ให้ลูกค้าอัตโนมัติ
     lineAddUrl: 'https://line.me/ti/p/mVLJ2wja5-',
     lineQr: '/images/brand/line-qr.jpg',
     email: todo('อีเมลฝ่ายขาย'),
