@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Pending from '../components/Pending.astro';
+import CtaSample from '../components/CtaSample.astro';
+
+// ข้อมูลจาก brief ยังไม่มีเอกสารยืนยันใน inbox\doc\05-OEM
+const status = { confirmed: false, source: 'จาก brief ขั้นตอน มัดจำ ระยะเวลา และ MOQ ต้องยืนยัน' };
+
+const steps = [
+  { title: 'ปรึกษาสเปก', text: 'แจ้งขนาด สี ความหนา จำนวน และรูปแบบบรรจุภัณฑ์ที่ต้องการ' },
+  { title: 'มัดจำและออกแบบ', text: 'มัดจำ [50%] ทีมกราฟิกออกแบบโลโก้และแพ็กเกจจิ้งให้ [ฟรี]' },
+  { title: 'ผลิตและตรวจคุณภาพ', text: 'ผลิตและ QC ใช้เวลาประมาณ [3–14 วัน] ขึ้นกับจำนวนและสเปก' },
+  { title: 'จัดส่ง', text: 'ส่งมอบทั่วประเทศหรือด่านชายแดน' },
+];
+const options = [
+  'สั่งขนาดและความหนาเฉพาะ',
+  'สั่งเป่าสีตามแบรนด์',
+  'พิมพ์โลโก้ 1–4 สี',
+  'แบบม้วน หรือแบบพับ',
+  'หูผูก 2 ชั้น',
+  'กลิ่นหอมลดกลิ่นอับ',
+];
+const moq = [
+  ['ถุงสีมาตรฐาน ไม่พิมพ์ลาย', '[รอข้อมูล]'],
+  ['พิมพ์โลโก้ 1 สี', '[รอข้อมูล]'],
+  ['พิมพ์โลโก้ 2–4 สี', '[รอข้อมูล]'],
+  ['สั่งเป่าสีพิเศษ', '[รอข้อมูล]'],
+];
+const mark = (s: string) => s.replace(/\[([^\]]+)\]/g, '<mark class="todo">$1</mark>');
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'รับผลิตถุงขยะ OEM สร้างแบรนด์',
+  serviceType: 'OEM trash bag manufacturing',
+  areaServed: 'TH',
+};
+---
+<Base
+  title="รับผลิตถุงขยะ OEM สร้างแบรนด์ของคุณเอง"
+  description="บริการรับผลิตถุงขยะ OEM สำหรับเจ้าของแบรนด์ SME และโมเดิร์นเทรด สั่งขนาด สี ความหนา พิมพ์โลโก้ 1–4 สี แบบม้วนหรือพับ พร้อมบริการออกแบบแพ็กเกจจิ้ง"
+  jsonLd={ld}
+>
+  <PageHero
+    title="รับผลิตถุงขยะ OEM สร้างแบรนด์"
+    lead="สำหรับเจ้าของแบรนด์ SME และโมเดิร์นเทรดที่ต้องการถุงขยะแบรนด์ของตัวเอง ตั้งแต่ออกแบบจนถึงจัดส่ง"
+    crumbs={[{ name: 'รับผลิต OEM' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <Pending {...status} />
+      <div class="section-head"><h2>ขั้นตอนรับผลิต 4 ขั้น</h2></div>
+      <ol class="steps grid grid-4">
+        {steps.map((s, i) => (
+          <li><span class="num">{i + 1}</span><h3>{s.title}</h3><p set:html={mark(s.text)} /></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap two">
+      <div>
+        <h2>ตัวเลือกการปรับแต่ง</h2>
+        <ul class="checklist">{options.map((o) => <li>{o}</li>)}</ul>
+      </div>
+      <img src="/images/oem/standard.jpg" alt="ตัวอย่างบรรจุภัณฑ์ถุงขยะ OEM" width="600" height="450" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>ขั้นต่ำการสั่งผลิต (MOQ)</h2>
+        <p>เงื่อนไขขั้นต่ำยืดหยุ่นสำหรับผู้เริ่มต้น สอบถามฝ่ายขายเพื่อคำนวณตามสเปกจริง</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">รูปแบบ</th><th scope="col">ขั้นต่ำ</th></tr></thead>
+          <tbody>{moq.map(([a, b]) => <tr><th scope="row">{a}</th><td set:html={mark(b)} /></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><CtaSample title="เริ่มสร้างแบรนด์ถุงขยะของคุณ" text="ส่งสเปกที่ต้องการ ทีมขายจะคำนวณราคาและ MOQ ให้ พร้อมส่งตัวอย่างถุงให้ทดสอบ" /></div>
+</Base>
+
+<style>
+  .steps { list-style: none; padding: 0; margin: 0; }
+  .steps li { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+  .num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; margin-bottom: 12px; }
+  .steps p { color: var(--muted); margin: 0; }
+  .two { display: grid; gap: 32px; align-items: center; }
+  .two img { border-radius: var(--radius); box-shadow: var(--shadow); }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
+</style>

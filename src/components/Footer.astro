@@ -1,0 +1,49 @@
+---
+import { site } from '../data/site';
+import { products } from '../data/products';
+import Fact from './Fact.astro';
+const c = site.contact;
+---
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <p class="brand"><Fact f={site.nameTh} /></p>
+      <p>{site.tagline}</p>
+      <p>ที่อยู่: <Fact f={c.address} /><br />เลขประจำตัวผู้เสียภาษี: <Fact f={c.taxId} /></p>
+    </div>
+    <div>
+      <h2>สินค้า</h2>
+      <ul>{products.map((p) => <li><a href={`/products/${p.slug}`}>{p.name}</a></li>)}</ul>
+    </div>
+    <div>
+      <h2>บริการ</h2>
+      <ul>
+        <li><a href="/oem">รับผลิต OEM สร้างแบรนด์</a></li>
+        <li><a href="/export">ส่งออกและการค้าชายแดน</a></li>
+        <li><a href="/knowledge">คลังความรู้</a></li>
+        <li><a href="/about">เกี่ยวกับเรา</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>ติดต่อฝ่ายขาย</h2>
+      <ul>
+        <li>โทร: <a href={c.phoneHref}><Fact f={c.phone} /></a></li>
+        <li>LINE: <Fact f={c.lineId} /></li>
+        <li>อีเมล: <Fact f={c.email} /></li>
+        <li><a href={c.facebook.value} rel="noopener">Facebook</a></li>
+      </ul>
+      <a class="btn btn-primary btn-sm" href="/contact">ขอใบเสนอราคา</a>
+    </div>
+  </div>
+  <div class="wrap copy">© {new Date().getFullYear()} {site.brand}</div>
+</footer>
+<style>
+  .site-footer { background: var(--slate); color: #cbd5e1; padding-top: 56px; padding-bottom: 96px; font-size: 0.95rem; }
+  .cols { display: grid; gap: 32px; }
+  @media (min-width: 720px) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+  h2 { color: #fff; font-size: 1rem; margin-bottom: 12px; }
+  .brand { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  ul { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+  a:not(.btn) { color: #e2e8f0; }
+  .copy { border-top: 1px solid #334155; margin-top: 40px; padding-top: 20px; font-size: 0.85rem; }
+</style>

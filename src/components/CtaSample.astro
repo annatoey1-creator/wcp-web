@@ -1,0 +1,24 @@
+---
+// กล่อง CTA ท้ายบทความและท้ายหน้าสินค้า
+interface Props { title?: string; text?: string }
+const {
+  title = 'ขอรับชุดตัวอย่างทดสอบฟรี',
+  text = 'นำไปตรวจสเปกจริงกับถังและงานของคุณก่อนสั่งซื้อ ทีมขายจะติดต่อกลับเพื่อยืนยันรายละเอียด',
+} = Astro.props;
+---
+<aside class="cta-sample">
+  <div>
+    <h2>{title}</h2>
+    <p>{text}</p>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี</a>
+    <a class="btn btn-light" href="/contact#quote-form">ขอใบเสนอราคา</a>
+  </div>
+</aside>
+<style>
+  .cta-sample { display: grid; gap: 20px; align-items: center; background: linear-gradient(135deg, var(--green) 0%, #165c3a 100%); color: #e9f6ef; border-radius: var(--radius); padding: clamp(24px, 4vw, 40px); margin-block: 40px; }
+  @media (min-width: 860px) { .cta-sample { grid-template-columns: 1fr auto; } }
+  h2 { color: #fff; font-size: 1.5rem; margin-bottom: 0.3em; }
+  p { margin: 0; }
+</style>

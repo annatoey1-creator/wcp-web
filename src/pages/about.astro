@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Pending from '../components/Pending.astro';
+import Fact from '../components/Fact.astro';
+import { site, unconfirmed } from '../data/site';
+
+// ข้อมูลจากสไลด์เดิม ยังไม่มีเอกสารยืนยันใน inbox\doc\01-ข้อมูลบริษัท
+const status = { confirmed: false, source: 'จากสไลด์เดิม ต้องยืนยันประวัติและตัวเลข' };
+const years = unconfirmed('20+ ปี', 'จากสไลด์เดิม');
+---
+<Base
+  title="เกี่ยวกับเรา"
+  description="ทำความรู้จัก World Class Plastic โรงงานผลิตถุงพลาสติกและถุงขยะ ควบคุมวัตถุดิบและคุณภาพเอง ตั้งแต่เม็ดพลาสติกจนถึงถุงสำเร็จรูป"
+>
+  <PageHero title="เกี่ยวกับเรา" lead={site.tagline} crumbs={[{ name: 'เกี่ยวกับเรา' }]} />
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <Pending {...status} />
+        <h2><Fact f={site.nameTh} /></h2>
+        <p>ประสบการณ์ในอุตสาหกรรมพลาสติกรีไซเคิล <Fact f={years} /></p>
+        <ul class="checklist">
+          <li>มีโรงงานผลิตเม็ดพลาสติกเอง ควบคุมวัตถุดิบได้</li>
+          <li>ตรวจวัดความหนาของถุงด้วยเครื่องวัด</li>
+          <li>จัดส่งทั่วประเทศและประเทศเพื่อนบ้าน</li>
+        </ul>
+        <p class="todo-block"><mark class="todo">[ประวัติบริษัท วิสัยทัศน์ และทีมงาน รอข้อมูลจากเจ้าของ]</mark></p>
+      </div>
+      <div class="pics">
+        <img src="/images/factory/film-roll.jpg" alt="ม้วนฟิล์มพลาสติกในโรงงาน" width="510" height="510" loading="lazy" />
+        <img src="/images/factory/thickness-gauge.jpg" alt="เครื่องวัดความหนาของถุงพลาสติก" width="240" height="240" loading="lazy" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1.2fr 1fr; } }
+  .pics { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: end; }
+  .pics img { border-radius: var(--radius); width: 100%; aspect-ratio: 1; object-fit: cover; }
+</style>

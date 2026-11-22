@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Fact from '../components/Fact.astro';
+import ProductCard from '../components/ProductCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CtaSample from '../components/CtaSample.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+
+const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+---
+<Base
+  title="World Class Plastic โรงงานผลิตและขายส่งถุงขยะ B2B รับผลิต OEM"
+  description="โรงงานผลิตและขายส่งถุงขยะสำหรับองค์กร ถุงขยะติดเชื้อสีแดง ถุงขยะรีไซเคิล ถุงดำงานหนัก ถุงแยกสี และรับสร้างแบรนด์ถุงขยะ OEM ครบวงจร ขอใบเสนอราคาและชุดตัวอย่างได้"
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">โรงงานผู้ผลิต · ขายส่ง · OEM</span>
+        <h1>โรงงานผลิตและขายส่งถุงขยะ B2B ครบวงจร รับสร้างแบรนด์ OEM</h1>
+        <p class="lead">
+          กำลังผลิต <Fact f={site.stats[0].fact} /> สต็อกพร้อมส่ง จัดส่งทั่วประเทศและชายแดน
+          สำหรับโรงพยาบาล บริษัททำความสะอาด โรงงาน และเจ้าของแบรนด์
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="/contact#quote-form">ขอใบเสนอราคาองค์กร</a>
+          <a class="btn btn-light" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี (B2B Sample Kit)</a>
+        </div>
+      </div>
+      <img src="/images/factory/production-line.jpg" alt="สายการผลิตถุงพลาสติกในโรงงาน" width="900" height="1543" fetchpriority="high" />
+    </div>
+  </section>
+
+  <section class="stats" aria-label="กำลังการผลิต">
+    <div class="wrap grid grid-3">
+      {site.stats.map((s) => (
+        <div class="stat">
+          <strong><Fact f={s.fact} /></strong>
+          <span>{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">สินค้าหลัก</span>
+        <h2>ถุงขยะ 4 กลุ่มสำหรับงานองค์กร</h2>
+        <p>ทุกกลุ่มมีตารางสเปกความหนาและจำนวนใบต่อกิโลกรัม ใช้เทียบ TOR หรือคำนวณต้นทุนต่อใบได้</p>
+      </div>
+      <div class="grid grid-4">{products.map((p) => <ProductCard p={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap oem">
+      <img src="/images/oem/labels.jpg" alt="ตัวอย่างฉลากและบรรจุภัณฑ์ถุงขยะ OEM" width="700" height="500" loading="lazy" />
+      <div>
+        <span class="eyebrow">บริการรับสร้างแบรนด์</span>
+        <h2>สร้างแบรนด์ถุงขยะของคุณเอง</h2>
+        <p class="free"><mark class="todo" title="รอยืนยันเงื่อนไขบริการฟรี">ฟรี! บริการออกแบบโลโก้และแพ็กเกจจิ้งสำหรับเจ้าของแบรนด์</mark></p>
+        <ul class="checklist">
+          <li>สั่งขนาด สี และความหนาเฉพาะ</li>
+          <li>พิมพ์โลโก้ 1–4 สี</li>
+          <li>แบบม้วนหรือแบบพับ หูผูก กลิ่นหอม</li>
+          <li>ขั้นต่ำยืดหยุ่นสำหรับผู้เริ่มต้น</li>
+        </ul>
+        <a class="btn btn-navy" href="/oem">ดูขั้นตอนรับผลิต OEM</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">มาตรฐานและการรับรอง</span>
+        <h2>เอกสารที่ฝ่ายจัดซื้อขอได้</h2>
+      </div>
+      <ul class="certs grid grid-3">
+        {site.certifications.map((c) => (
+          <li><strong>{c.name}</strong><span><Fact f={c.fact} /></span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section alt">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">คลังความรู้</span>
+          <h2>บทความสำหรับฝ่ายจัดซื้อ</h2>
+        </div>
+        <div class="grid grid-3">{posts.map((p) => <ArticleCard post={p} />)}</div>
+        <p style="margin-top:24px"><a href="/knowledge">ดูบทความทั้งหมด →</a></p>
+      </div>
+    </section>
+  )}
+
+  <div class="wrap"><CtaSample /></div>
+</Base>
+
+<style>
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #0f2240 60%, #16365f 100%); color: #dbe5f2; padding-block: clamp(40px, 7vw, 88px); overflow: hidden; }
+  .hero-grid { display: grid; gap: 32px; align-items: center; }
+  .hero h1 { color: #fff; }
+  .hero .eyebrow { color: #7fd1a6; }
+  .lead { font-size: 1.15rem; max-width: 620px; margin-bottom: 28px; }
+  .hero img { border-radius: var(--radius); max-height: 420px; width: 100%; object-fit: cover; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.2fr 1fr; } }
+
+  .stats { background: var(--green); color: #e8f6ee; padding-block: 28px; }
+  .stat { display: grid; gap: 2px; text-align: center; }
+  .stat strong { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem); color: #fff; line-height: 1.2; }
+
+  .oem { display: grid; gap: 32px; align-items: center; }
+  .oem img { border-radius: var(--radius); box-shadow: var(--shadow); }
+  @media (min-width: 900px) { .oem { grid-template-columns: 1fr 1fr; } }
+  .free { font-size: 1.15rem; font-weight: 700; color: var(--red); }
+
+  .certs { list-style: none; padding: 0; margin: 0; }
+  .certs li { display: grid; gap: 6px; padding: 20px; border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--radius); background: #fff; }
+  .certs strong { color: var(--navy); }
+</style>

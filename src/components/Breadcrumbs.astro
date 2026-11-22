@@ -1,0 +1,23 @@
+---
+import { site } from '../data/site';
+interface Props { items: { name: string; href?: string }[] }
+const items = [{ name: 'หน้าแรก', href: '/' }, ...Astro.props.items];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    item: new URL(it.href ?? Astro.url.pathname, site.url).href,
+  })),
+};
+---
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <ol>
+    {items.map((it, i) => (
+      <li>{i < items.length - 1 && it.href ? <a href={it.href}>{it.name}</a> : <span aria-current="page">{it.name}</span>}</li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />

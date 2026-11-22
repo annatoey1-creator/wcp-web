@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Pending from '../components/Pending.astro';
+import CtaSample from '../components/CtaSample.astro';
+
+// ข้อมูลจาก brief ยังไม่มีเอกสารยืนยันใน inbox\doc\06-ส่งออก
+const status = { confirmed: false, source: 'จาก brief สิทธิ e-Form D พิกัด HS ตลาด และเงื่อนไขส่งมอบต้องยืนยัน' };
+
+const markets = [
+  { country: 'สปป.ลาว', points: ['โรงพยาบาลและสถานพยาบาล', 'เขตเศรษฐกิจพิเศษสะหวัน-เซโน (Savan-Seno SEZ)', 'ธุรกิจโรงแรมและการท่องเที่ยว'] },
+  { country: 'เมียนมา', points: ['ส่งมอบหน้าด่านแม่สอด', 'ผู้ค้าส่งฝั่งเมียวดี'] },
+];
+const terms = [
+  ['FOB ด่านชายแดนไทย', 'ส่งมอบสินค้าที่ด่านชายแดนฝั่งไทย'],
+  ['EXW หน้าโรงงาน', 'ผู้ซื้อรับสินค้าที่โรงงาน'],
+  ['การชำระเงิน', 'ชำระผ่านระบบธนาคารไทย'],
+];
+---
+<Base
+  title="ส่งออกถุงขยะไป สปป.ลาว และเมียนมา"
+  description="บริการส่งออกถุงขยะสำหรับผู้นำเข้าและผู้ค้าส่งใน สปป.ลาว และเมียนมา รองรับหนังสือรับรองถิ่นกำเนิดสินค้า e-Form D (ATIGA) ส่งมอบ FOB ด่านชายแดนหรือ EXW หน้าโรงงาน"
+>
+  <PageHero
+    title="ส่งออกและคู่ค้าชายแดน"
+    lead="สำหรับผู้นำเข้าและผู้ค้าส่งบรรจุภัณฑ์ใน สปป.ลาว และเมียนมา"
+    crumbs={[{ name: 'ส่งออกชายแดน' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <Pending {...status} />
+      <div class="section-head">
+        <h2>สิทธิประโยชน์ทางภาษี</h2>
+        <p>
+          รองรับการออกหนังสือรับรองถิ่นกำเนิดสินค้า <strong>e-Form D (ATIGA)</strong>
+          สำหรับสินค้าพิกัด <strong>HS 3923.21</strong> (ถุงทำจากโพลิเมอร์ของเอทิลีน)
+          เพื่อใช้สิทธิลดหรือยกเว้นอากรขาเข้าในประเทศสมาชิกอาเซียน
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>ตลาดเป้าหมาย</h2>
+      <div class="grid grid-2">
+        {markets.map((m) => (
+          <div class="card"><div class="card-body"><h3>{m.country}</h3><ul class="checklist">{m.points.map((p) => <li>{p}</li>)}</ul></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>เงื่อนไขการค้า</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">เงื่อนไข</th><th scope="col">รายละเอียด</th></tr></thead>
+          <tbody>{terms.map(([a, b]) => <tr><th scope="row">{a}</th><td>{b}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><CtaSample title="สอบถามการส่งออก" text="แจ้งประเทศปลายทาง ด่านที่ต้องการ และปริมาณ ทีมขายจะแจ้งราคาและเอกสารที่ออกให้ได้" /></div>
+</Base>

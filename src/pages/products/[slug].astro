@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SpecTable from '../../components/SpecTable.astro';
+import Pending from '../../components/Pending.astro';
+import CtaSample from '../../components/CtaSample.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { products, type Product } from '../../data/products';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Product };
+
+const related = (await getCollection('knowledge', ({ data }) => !data.draft && data.relatedProducts.includes(p.slug))).slice(0, 3);
+const others = products.filter((o) => o.slug !== p.slug);
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  description: p.description,
+  image: new URL(p.image, site.url).href,
+  brand: { '@type': 'Brand', name: site.brand },
+  category: 'ถุงขยะ',
+};
+---
+<Base title={p.name} description={p.description} image={p.image} jsonLd={ld}>
+  <PageHero title={p.name} lead={p.description} crumbs={[{ name: 'สินค้า', href: '/products' }, { name: p.name }]} />
+
+  <section class="section">
+    <div class="wrap">
+      <Pending confirmed={p.status.confirmed} source={p.status.source} />
+      <div class="intro">
+        <img src={p.image} alt={p.imageAlt} width="600" height="450" />
+        <div>
+          <h2>จุดเด่น</h2>
+          <ul class="checklist">
+            {p.highlights.map((h) => <li set:html={h.replace(/\[([^\]]+)\]/g, '<mark class="todo">[$1]</mark>')} />)}
+          </ul>
+          <p><strong>เหมาะกับ:</strong> {p.audience}</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href={`/contact?product=${p.slug}#quote-form`}>ขอใบเสนอราคาสินค้านี้</a>
+            {p.specSheet
+              ? <a class="btn btn-outline" href={p.specSheet} download>ดาวน์โหลด Spec Sheet (PDF)</a>
+              : <span class="btn btn-outline" aria-disabled="true" title="ยังไม่มีไฟล์ PDF">Spec Sheet PDF (เร็วๆ นี้)</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="spec">
+    <div class="wrap">
+      <h2>ตารางสเปก</h2>
+      <SpecTable spec={p.spec} />
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <h2>บทความที่เกี่ยวข้อง</h2>
+        <div class="grid grid-3">{related.map((r) => <ArticleCard post={r} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <div class="wrap"><CtaSample /></div>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>สินค้ากลุ่มอื่น</h2>
+      <ul class="others">{others.map((o) => <li><a href={`/products/${o.slug}`}>{o.name}</a></li>)}</ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { display: grid; gap: 32px; align-items: start; }
+  .intro img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (min-width: 900px) { .intro { grid-template-columns: 1fr 1.2fr; } }
+  .others { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 0; }
+  .others a { display: inline-block; padding: 10px 16px; border: 1px solid var(--border); border-radius: 999px; background: #fff; text-decoration: none; }
+</style>

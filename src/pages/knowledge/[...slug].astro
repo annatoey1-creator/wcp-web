@@ -1,0 +1,91 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaSample from '../../components/CtaSample.astro';
+import { categories, readingMinutes, formatThaiDate } from '../../data/knowledge';
+import { getProduct } from '../../data/products';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('knowledge', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props as { post: CollectionEntry<'knowledge'> };
+const d = post.data;
+const { Content } = await render(post);
+const cat = categories[d.category];
+const url = new URL(`/knowledge/${post.id}`, site.url).href;
+const relatedProducts = d.relatedProducts.map(getProduct).filter((p) => p !== undefined);
+
+const ld: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    image: new URL(d.cover, site.url).href,
+    datePublished: d.publishDate.toISOString(),
+    dateModified: (d.updatedDate ?? d.publishDate).toISOString(),
+    author: { '@type': 'Organization', name: d.author },
+    publisher: { '@type': 'Organization', name: site.brand, logo: new URL('/images/brand/logo-full.jpg', site.url).href },
+    mainEntityOfPage: url,
+    inLanguage: 'th',
+  },
+];
+if (d.faq.length) {
+  ld.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+<Base title={d.title} description={d.description} image={d.cover} type="article" jsonLd={ld}>
+  <article class="section">
+    <div class="wrap">
+      <header class="post-head">
+        <Breadcrumbs items={[{ name: 'คลังความรู้', href: '/knowledge' }, { name: cat.name, href: `/knowledge/category/${d.category}` }, { name: d.title }]} />
+        <a class="tag" href={`/knowledge/category/${d.category}`}>{cat.name}</a>
+        <h1>{d.title}</h1>
+        <p class="meta">
+          โดย {d.author} · <time datetime={d.publishDate.toISOString()}>{formatThaiDate(d.publishDate)}</time>
+          {d.updatedDate && <> · อัปเดต <time datetime={d.updatedDate.toISOString()}>{formatThaiDate(d.updatedDate)}</time></>}
+          · อ่าน {readingMinutes(post.body)} นาที
+        </p>
+      </header>
+      <img class="cover" src={d.cover} alt={d.coverAlt} width="1000" height="560" fetchpriority="high" />
+      <div class="prose">
+        <Content />
+
+        {d.faq.length > 0 && (
+          <section class="faq">
+            <h2>คำถามที่พบบ่อย</h2>
+            {d.faq.map((f) => (
+              <details><summary>{f.q}</summary><p>{f.a}</p></details>
+            ))}
+          </section>
+        )}
+
+        {relatedProducts.length > 0 && (
+          <section>
+            <h2>สินค้าที่เกี่ยวข้อง</h2>
+            <ul>{relatedProducts.map((p) => <li><a href={`/products/${p.slug}`}>{p.name}</a></li>)}</ul>
+          </section>
+        )}
+
+        <CtaSample title="ขอรับชุดตัวอย่างทดสอบฟรี เพื่อนำไปตรวจสเปกจริง" />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post-head { max-width: 760px; }
+  .tag { text-decoration: none; margin-bottom: 12px; }
+  .meta { color: var(--muted); font-size: 0.95rem; }
+  .cover { width: 100%; max-width: 760px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); margin: 8px 0 32px; }
+  .faq details { border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; background: #fff; }
+  .faq summary { cursor: pointer; font-weight: 600; color: var(--navy); }
+  .faq details p { margin: 10px 0 0; }
+</style>

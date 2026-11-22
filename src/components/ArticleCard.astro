@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categories, readingMinutes, formatThaiDate } from '../data/knowledge';
+interface Props { post: CollectionEntry<'knowledge'> }
+const { post } = Astro.props;
+const d = post.data;
+---
+<article class="card">
+  <img src={d.cover} alt={d.coverAlt} width="400" height="300" loading="lazy" decoding="async" />
+  <div class="card-body">
+    <a class="tag" href={`/knowledge/category/${d.category}`}>{categories[d.category].name}</a>
+    <h3><a href={`/knowledge/${post.id}`}>{d.title}</a></h3>
+    <p class="meta"><time datetime={d.publishDate.toISOString()}>{formatThaiDate(d.publishDate)}</time> · อ่าน {readingMinutes(post.body)} นาที</p>
+  </div>
+</article>
+<style>
+  .tag { align-self: flex-start; text-decoration: none; }
+  h3 { margin: 4px 0 0; }
+  h3 a { color: var(--navy); text-decoration: none; }
+  h3 a:hover { text-decoration: underline; }
+  .meta { font-size: 0.9rem; margin-top: auto !important; padding-top: 8px; }
+</style>

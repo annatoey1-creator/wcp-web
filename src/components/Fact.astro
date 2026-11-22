@@ -1,0 +1,7 @@
+---
+// แสดงข้อมูลธุรกิจ ถ้ายังไม่ยืนยันจะไฮไลต์สีเหลือง
+import type { Fact } from '../data/site';
+interface Props { f: Fact }
+const { f } = Astro.props;
+---
+{f.ok ? <Fragment>{f.value}</Fragment> : <mark class="todo" title={`รอยืนยัน: ${f.note ?? ''}`}>{f.value}</mark>}

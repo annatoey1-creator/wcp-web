@@ -1,0 +1,8 @@
+---
+// กล่องเตือนว่าข้อมูลในส่วนนี้ยังรอเจ้าของยืนยัน จะหายไปเมื่อ confirmed = true
+interface Props { confirmed: boolean; source: string }
+const { confirmed, source } = Astro.props;
+---
+{!confirmed && (
+  <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>ข้อมูลส่วนนี้รอเจ้าของยืนยัน ({source})</span></p>
+)}

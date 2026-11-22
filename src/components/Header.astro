@@ -1,0 +1,50 @@
+---
+import { site } from '../data/site';
+const nav = [
+  { href: '/products', label: 'สินค้าและสเปก' },
+  { href: '/oem', label: 'รับผลิต OEM' },
+  { href: '/export', label: 'ส่งออกชายแดน' },
+  { href: '/knowledge', label: 'คลังความรู้' },
+  { href: '/about', label: 'เกี่ยวกับเรา' },
+];
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="/" aria-label={`${site.brand} หน้าแรก`}>
+      <img src="/images/brand/logo-mark.jpg" alt="" width="44" height="44" />
+      <span>World Class<br /><strong>Plastic</strong></span>
+    </a>
+    <nav class="desktop-nav" aria-label="เมนูหลัก">
+      {nav.map((n) => <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      <a class="btn btn-primary btn-sm" href="/contact">ขอใบเสนอราคา</a>
+    </nav>
+    <details class="mobile-nav">
+      <summary aria-label="เปิดเมนู"><span></span><span></span><span></span></summary>
+      <nav aria-label="เมนูมือถือ">
+        <a href="/">หน้าแรก</a>
+        {nav.map((n) => <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        <a class="btn btn-primary" href="/contact">ขอใบเสนอราคา</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgb(255 255 255 / 0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); line-height: 1.1; font-size: 0.95rem; }
+  .logo img { border-radius: 8px; }
+  .logo strong { font-size: 1.15rem; }
+  .desktop-nav { display: none; align-items: center; gap: 22px; }
+  .desktop-nav a:not(.btn) { color: var(--slate); text-decoration: none; font-weight: 500; font-size: 0.98rem; }
+  .desktop-nav a[aria-current='page'] { color: var(--green); }
+  .desktop-nav a:not(.btn):hover { color: var(--green); }
+  .mobile-nav summary { list-style: none; cursor: pointer; display: grid; gap: 5px; padding: 12px; }
+  .mobile-nav summary::-webkit-details-marker { display: none; }
+  .mobile-nav summary span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+  .mobile-nav nav { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow); display: grid; padding: 8px 16px 16px; }
+  .mobile-nav nav a:not(.btn) { padding: 12px 4px; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--gray-100); }
+  .mobile-nav nav .btn { margin-top: 12px; }
+  @media (min-width: 1000px) { .desktop-nav { display: flex; } .mobile-nav { display: none; } }
+</style>

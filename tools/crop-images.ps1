@@ -7,7 +7,7 @@
 
 param(
   [string]$Src = 'C:\projects\inbox\picture',
-  [string]$Out = (Join-Path $PSScriptRoot '..\assets\images')
+  [string]$Out = (Join-Path $PSScriptRoot '..\public\images')
 )
 Add-Type -AssemblyName System.Drawing
 

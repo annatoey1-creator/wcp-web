@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Fact from '../components/Fact.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+
+const c = site.contact;
+const businessTypes = ['โรงพยาบาล / คลินิก', 'บริษัทจัดการขยะติดเชื้อ', 'บริษัททำความสะอาด (FM) / อาคาร', 'โรงงานอุตสาหกรรม', 'เจ้าของแบรนด์ OEM / โมเดิร์นเทรด', 'ผู้นำเข้า / ส่งออก', 'อื่นๆ'];
+const endpoint = site.form.endpoint;
+---
+<Base
+  title="ขอใบเสนอราคาและชุดตัวอย่างฟรี"
+  description="ขอใบเสนอราคาถุงขยะสำหรับองค์กร และขอรับชุดตัวอย่างสินค้าฟรี (B2B Sample Kit) กรอกสเปกและปริมาณที่ต้องการ ทีมขายติดต่อกลับ"
+>
+  <PageHero
+    title="ขอใบเสนอราคาและชุดตัวอย่าง"
+    lead="กรอกข้อมูลด้านล่าง ทีมขายจะติดต่อกลับพร้อมราคาและรายละเอียดสเปก"
+    crumbs={[{ name: 'ติดต่อเรา' }]}
+  />
+
+  <section class="section">
+    <div class="wrap layout">
+      <form id="quote-form" class="form" method="post" action={endpoint || undefined} data-endpoint={endpoint}>
+        {!endpoint && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>ฟอร์มยังไม่ได้เชื่อมระบบรับข้อมูล (ตั้งค่าที่ src/data/site.ts → form.endpoint)</span></p>}
+
+        <fieldset>
+          <legend>ข้อมูลผู้ติดต่อ</legend>
+          <label>ชื่อบริษัท / หน่วยงาน *<input name="company" required autocomplete="organization" /></label>
+          <label>ชื่อผู้ติดต่อ *<input name="name" required autocomplete="name" /></label>
+          <div class="row">
+            <label>เบอร์โทรศัพท์ *<input name="phone" type="tel" required autocomplete="tel" inputmode="tel" /></label>
+            <label>LINE ID<input name="line_id" /></label>
+          </div>
+          <label>อีเมล<input name="email" type="email" autocomplete="email" /></label>
+          <label>ประเภทธุรกิจ *
+            <select name="business_type" required>
+              <option value="">เลือกประเภทธุรกิจ</option>
+              {businessTypes.map((b) => <option>{b}</option>)}
+            </select>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>สินค้าที่สนใจ</legend>
+          <div class="checks">
+            {products.map((p) => (
+              <label class="check"><input type="checkbox" name="products" value={p.name} data-slug={p.slug} />{p.name}</label>
+            ))}
+            <label class="check"><input type="checkbox" name="products" value="รับผลิต OEM" />รับผลิต OEM สร้างแบรนด์</label>
+          </div>
+          <div class="row">
+            <label>ปริมาณคาดการณ์<input name="quantity" inputmode="decimal" placeholder="เช่น 500" /></label>
+            <label>หน่วย
+              <select name="unit"><option>กก./เดือน</option><option>ตัน/เดือน</option><option>กก./ครั้ง</option><option>ตัน/ครั้ง</option></select>
+            </label>
+          </div>
+          <label>รายละเอียดเพิ่มเติม<textarea name="message" rows="4" placeholder="ขนาด สี ความหนา หรือข้อกำหนด TOR"></textarea></label>
+        </fieldset>
+
+        <fieldset class="sample">
+          <label class="check strong"><input type="checkbox" id="want-sample" name="want_sample" value="yes" />ต้องการรับชุดตัวอย่างสินค้าฟรีสำหรับองค์กร (Sample Kit)</label>
+          <label class="sample-address">ที่อยู่จัดส่งตัวอย่าง<textarea name="sample_address" rows="3" autocomplete="street-address"></textarea></label>
+        </fieldset>
+
+        <label class="check consent"><input type="checkbox" name="consent" required />ยินยอมให้บริษัทใช้ข้อมูลนี้เพื่อติดต่อกลับเรื่องใบเสนอราคาและตัวอย่างสินค้า *</label>
+
+        <button class="btn btn-primary" type="submit">ส่งคำขอใบเสนอราคา</button>
+        <p class="form-msg" role="status" hidden></p>
+      </form>
+
+      <aside class="info">
+        <h2>ติดต่อฝ่ายขายองค์กร</h2>
+        <ul>
+          <li><strong>โทร</strong><a href={c.phoneHref}><Fact f={c.phone} /></a></li>
+          <li><strong>LINE OA</strong>{c.lineUrl ? <a href={c.lineUrl}><Fact f={c.lineId} /></a> : <Fact f={c.lineId} />}</li>
+          <li><strong>อีเมล</strong><Fact f={c.email} /></li>
+          <li><strong>เวลาทำการ</strong><Fact f={c.hours} /></li>
+        </ul>
+        <h2>ที่ตั้งโรงงาน</h2>
+        <p><Fact f={c.address} /></p>
+        {c.mapsEmbedUrl
+          ? <iframe src={c.mapsEmbedUrl} title="แผนที่โรงงาน" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          : <div class="map-todo"><mark class="todo">[แผนที่ Google Maps]</mark></div>}
+        <h2>ข้อมูลออกใบกำกับภาษี</h2>
+        <p><Fact f={site.nameTh} /><br />เลขประจำตัวผู้เสียภาษี <Fact f={c.taxId} /></p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+  if (form) {
+    const params = new URLSearchParams(location.search);
+    if (params.get('sample') === '1') (form.querySelector('#want-sample') as HTMLInputElement).checked = true;
+    const slug = params.get('product');
+    if (slug) {
+      const box = form.querySelector<HTMLInputElement>(`input[data-slug="${CSS.escape(slug)}"]`);
+      if (box) box.checked = true;
+    }
+    const msg = form.querySelector('.form-msg') as HTMLElement;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const endpoint = form.dataset.endpoint;
+      msg.hidden = false;
+      if (!endpoint) {
+        msg.textContent = 'ระบบส่งฟอร์มยังไม่เปิดใช้งาน กรุณาโทรหรือติดต่อทาง LINE';
+        return;
+      }
+      msg.textContent = 'กำลังส่ง...';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        msg.textContent = 'ส่งคำขอเรียบร้อย ทีมขายจะติดต่อกลับโดยเร็ว';
+      } catch {
+        msg.textContent = 'ส่งไม่สำเร็จ กรุณาลองใหม่ หรือโทรหาฝ่ายขาย';
+      }
+    });
+  }
+</script>
+
+<style>
+  .layout { display: grid; gap: 40px; align-items: start; }
+  @media (min-width: 960px) { .layout { grid-template-columns: 1.4fr 1fr; } }
+  .form { display: grid; gap: 20px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(20px, 3vw, 32px); box-shadow: var(--shadow); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; }
+  legend { font-weight: 700; color: var(--navy); font-size: 1.1rem; margin-bottom: 6px; }
+  label { display: grid; gap: 6px; font-weight: 500; font-size: 0.98rem; }
+  input:not([type='checkbox']), select, textarea { font: inherit; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: #fff; width: 100%; min-height: 48px; }
+  input:focus, select:focus, textarea:focus { border-color: var(--navy-700); outline: 2px solid rgb(29 58 102 / 0.2); }
+  .row { display: grid; gap: 14px; }
+  @media (min-width: 560px) { .row { grid-template-columns: 1fr 1fr; } }
+  .checks { display: grid; gap: 8px; }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+  .check input { width: 20px; height: 20px; margin-top: 4px; flex: none; accent-color: var(--green); }
+  .check.strong { font-weight: 600; }
+  .sample { background: var(--green-50); border-radius: 10px; padding: 16px; }
+  .sample-address { display: none; }
+  .sample:has(#want-sample:checked) .sample-address { display: grid; }
+  .consent { font-size: 0.92rem; color: var(--muted); }
+  .form-msg { margin: 0; font-weight: 600; color: var(--navy); }
+  .info h2 { font-size: 1.15rem; margin-top: 24px; }
+  .info h2:first-child { margin-top: 0; }
+  .info ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .info li { display: grid; grid-template-columns: 96px 1fr; gap: 8px; }
+  iframe, .map-todo { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radius); background: var(--gray-100); }
+  .map-todo { display: grid; place-items: center; }
+</style>

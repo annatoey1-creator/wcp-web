@@ -1,0 +1,18 @@
+---
+import type { SpecTable } from '../data/products';
+interface Props { spec: SpecTable }
+const { spec } = Astro.props;
+const isTodo = (v: string) => v.startsWith('[');
+---
+{!spec.confirmed && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>ตารางนี้รอเจ้าของยืนยัน ({spec.source})</span></p>}
+<div class="table-wrap">
+  <table>
+    <caption>{spec.caption}</caption>
+    <thead><tr>{spec.columns.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+    <tbody>
+      {spec.rows.map((r) => (
+        <tr>{r.map((v, i) => (i === 0 ? <th scope="row">{isTodo(v) ? <mark class="todo">{v}</mark> : v}</th> : <td>{isTodo(v) ? <mark class="todo">{v}</mark> : v}</td>))}</tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { categories, categoryKeys } from '../../data/knowledge';
+
+const posts = (await getCollection('knowledge', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+---
+<Base
+  title="คลังความรู้ถุงขยะสำหรับฝ่ายจัดซื้อ"
+  description="บทความความรู้สำหรับฝ่ายจัดซื้อและผู้ประกอบการ กฎหมายและมาตรฐานถุงขยะ วิธีคำนวณสเปกและลดต้นทุน สิ่งแวดล้อมและ ESG และการค้าส่งออกชายแดน"
+>
+  <PageHero
+    title="คลังความรู้"
+    lead="ความรู้เรื่องถุงขยะสำหรับฝ่ายจัดซื้อ ผู้ดูแลอาคาร และเจ้าของแบรนด์"
+    crumbs={[{ name: 'คลังความรู้' }]}
+  />
+  <section class="section">
+    <div class="wrap">
+      <nav class="cats" aria-label="หมวดบทความ">
+        <a href="/knowledge" aria-current="page">ทั้งหมด</a>
+        {categoryKeys.map((k) => <a href={`/knowledge/category/${k}`}>{categories[k].name}</a>)}
+      </nav>
+      {posts.length
+        ? <div class="grid grid-3">{posts.map((p) => <ArticleCard post={p} />)}</div>
+        : <p>ยังไม่มีบทความ</p>}
+    </div>
+  </section>
+</Base>
+
