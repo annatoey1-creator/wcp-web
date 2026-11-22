@@ -36,7 +36,7 @@ export const site = {
 
   url: 'https://wcp-web.vercel.app',
   brand: 'World Class Plastic',
-  nameTh: unconfirmed('บริษัท เวิลด์คลาสพลาสติก จำกัด', 'จากสไลด์เดิม'),
+  nameTh: confirmed('บริษัท เวิลด์คลาสพลาสติก จำกัด'), // เจ้าของยืนยันในแชต 2026-11-22
   nameEn: unconfirmed('World Class Plastic Co., Ltd.', 'จากสไลด์เดิม'),
   tagline: 'โรงงานผลิตและขายส่งถุงขยะ B2B รับสร้างแบรนด์ OEM',
 

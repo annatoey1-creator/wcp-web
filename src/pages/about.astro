@@ -3,11 +3,12 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Pending from '../components/Pending.astro';
 import Fact from '../components/Fact.astro';
-import { site, unconfirmed } from '../data/site';
+import { site, confirmed } from '../data/site';
 
-// ข้อมูลจากสไลด์เดิม ยังไม่มีเอกสารยืนยันใน inbox\doc\01-ข้อมูลบริษัท
-const status = { confirmed: false, source: 'จากสไลด์เดิม ต้องยืนยันประวัติและตัวเลข' };
-const years = unconfirmed('20+ ปี', 'จากสไลด์เดิม');
+// ชื่อบริษัท ประสบการณ์ 20+ ปี และจุดเด่นในหน้านี้ เจ้าของยืนยันในแชต 2026-11-22
+// ส่วนประวัติบริษัท วิสัยทัศน์ ทีมงาน ยังรอข้อมูล
+const status = { confirmed: true, source: 'ยืนยันในแชต 2026-11-22' };
+const years = confirmed('20+ ปี');
 ---
 <Base
   title="เกี่ยวกับเรา"
