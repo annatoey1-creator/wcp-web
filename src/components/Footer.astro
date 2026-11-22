@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, lineLink } from '../data/site';
 import { products } from '../data/products';
 import Fact from './Fact.astro';
 const c = site.contact;
@@ -28,11 +28,11 @@ const c = site.contact;
       <h2>ติดต่อฝ่ายขาย</h2>
       <ul>
         <li>โทร: <a href={c.phoneHref}><Fact f={c.phone} /></a></li>
-        <li>LINE: <Fact f={c.lineId} /></li>
+        <li>LINE: <a href={lineLink()} rel="noopener"><Fact f={c.lineId} /></a></li>
         <li>อีเมล: <Fact f={c.email} /></li>
         <li><a href={c.facebook.value} rel="noopener">Facebook</a></li>
       </ul>
-      <a class="btn btn-primary btn-sm" href="/contact">ขอใบเสนอราคา</a>
+      <a class="btn btn-line btn-sm" href={lineLink("สนใจขอใบเสนอราคาถุงขยะ")} rel="noopener">ทัก LINE ขอใบเสนอราคา</a>
     </div>
   </div>
   <div class="wrap copy">© {new Date().getFullYear()} {site.brand}</div>

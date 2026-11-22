@@ -117,3 +117,5 @@ tbody tr:nth-child(even) { background: var(--gray-50); }
 .cats a { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); text-decoration: none; color: var(--slate); background: #fff; font-size: 0.95rem; }
 .cats a[aria-current='page'] { background: var(--primary); border-color: var(--primary); color: #fff; }
 .visually-hidden:focus { position: fixed; top: 8px; left: 8px; width: auto; height: auto; clip: auto; z-index: 100; background: #fff; padding: 8px 16px; border-radius: 8px; }
+.btn-line { background: #06c755; color: #fff; }
+.btn-line:hover { background: #05a647; }

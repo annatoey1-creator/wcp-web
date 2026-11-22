@@ -5,7 +5,7 @@ import Fact from '../components/Fact.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaSample from '../components/CtaSample.astro';
-import { site } from '../data/site';
+import { site, lineLink } from '../data/site';
 import { products } from '../data/products';
 
 const posts = (await getCollection('knowledge', ({ data }) => !data.draft))
@@ -21,7 +21,7 @@ const heroSlides = [
 ---
 <Base
   title="World Class Plastic โรงงานผลิตและขายส่งถุงขยะ B2B รับผลิต OEM"
-  description="โรงงานผลิตและขายส่งถุงขยะสำหรับองค์กร ถุงขยะติดเชื้อสีแดง ถุงขยะรีไซเคิล ถุงดำงานหนัก ถุงแยกสี และรับสร้างแบรนด์ถุงขยะ OEM ครบวงจร ขอใบเสนอราคาและชุดตัวอย่างได้"
+  description="โรงงานผลิตและขายส่งถุงขยะสำหรับองค์กร ถุงขยะติดเชื้อสีแดง ถุงขยะรีไซเคิล ถุงดำงานหนัก ถุงแยกสี และรับสร้างแบรนด์ถุงขยะ OEM ครบวงจร ทัก LINE ขอใบเสนอราคาและชุดตัวอย่างได้ทันที"
 >
   <section class="hero" aria-label="แนะนำบริษัท">
     {heroSlides.map((s, i) => (
@@ -41,8 +41,8 @@ const heroSlides = [
         <li>✓ ส่งทั่วไทยและชายแดน</li>
       </ul>
       <div class="btn-row">
-        <a class="btn btn-primary" href="/contact#quote-form">ขอใบเสนอราคาองค์กร</a>
-        <a class="btn btn-ghost" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี (B2B Sample Kit)</a>
+        <a class="btn btn-line" href={lineLink("สนใจขอใบเสนอราคาถุงขยะสำหรับองค์กร")} rel="noopener">ทัก LINE ขอใบเสนอราคา</a>
+        <a class="btn btn-primary" href={lineLink("สนใจขอรับชุดตัวอย่างถุงขยะฟรี (B2B Sample Kit)")} rel="noopener">ขอชุดตัวอย่างฟรีทาง LINE</a>
       </div>
     </div>
     <div class="dots" role="group" aria-label="เลือกภาพ">

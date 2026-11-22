@@ -21,8 +21,8 @@ function walk(value, path) {
 
 walk(site, 'site');
 walk(products, 'products');
-if (!site.form.endpoint) issues.push('site.form.endpoint: ฟอร์มยังไม่ได้เชื่อมระบบรับข้อมูล');
-if (!site.contact.lineUrl) issues.push('site.contact.lineUrl: ยังไม่มีลิงก์ LINE OA');
+if (!site.contact.lineOaId) issues.push('site.contact.lineOaId: ยังไม่มี LINE OA ID (ปุ่ม LINE ทุกปุ่มยังเปิดแชตไม่ได้)');
+if (!site.contact.lineQr) issues.push('site.contact.lineQr: ยังไม่มีรูป QR code LINE OA');
 if (!site.contact.mapsEmbedUrl) issues.push('site.contact.mapsEmbedUrl: ยังไม่มีแผนที่');
 
 // หน้าเว็บที่เขียน placeholder ไว้ตรงๆ

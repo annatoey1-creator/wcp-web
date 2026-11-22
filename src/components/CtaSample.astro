@@ -1,9 +1,11 @@
 ---
-// กล่อง CTA ท้ายบทความและท้ายหน้าสินค้า
-interface Props { title?: string; text?: string }
+// กล่อง CTA ท้ายบทความและท้ายหน้าสินค้า ลูกค้ากดแล้วเปิดแชต LINE พร้อมข้อความ
+import { site, lineLink } from '../data/site';
+interface Props { title?: string; text?: string; message?: string }
 const {
   title = 'ขอรับชุดตัวอย่างทดสอบฟรี',
-  text = 'นำไปตรวจสเปกจริงกับถังและงานของคุณก่อนสั่งซื้อ ทีมขายจะติดต่อกลับเพื่อยืนยันรายละเอียด',
+  text = 'ทัก LINE บอกสินค้าและจำนวนที่สนใจ ฝ่ายขายตอบกลับในแชตทันที ไม่ต้องกรอกแบบฟอร์ม',
+  message = 'สนใจขอรับชุดตัวอย่างถุงขยะฟรี',
 } = Astro.props;
 ---
 <aside class="cta-sample">
@@ -12,8 +14,8 @@ const {
     <p>{text}</p>
   </div>
   <div class="btn-row">
-    <a class="btn btn-primary" href="/contact?sample=1#quote-form">ขอรับชุดตัวอย่างฟรี</a>
-    <a class="btn btn-light" href="/contact#quote-form">ขอใบเสนอราคา</a>
+    <a class="btn btn-line" href={lineLink(message)} rel="noopener">ทัก LINE คุยกับฝ่ายขาย</a>
+    <a class="btn btn-light" href={site.contact.phoneHref}>โทร {site.contact.phone.value}</a>
   </div>
 </aside>
 <style>

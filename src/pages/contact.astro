@@ -1,79 +1,49 @@
 ---
+// หน้าติดต่อ: ไม่มีแบบฟอร์ม ลูกค้าทัก LINE คุยกับฝ่ายขายได้ทันที
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Fact from '../components/Fact.astro';
-import { site } from '../data/site';
-import { products } from '../data/products';
+import { site, lineLink } from '../data/site';
 
 const c = site.contact;
-const businessTypes = ['โรงพยาบาล / คลินิก', 'บริษัทจัดการขยะติดเชื้อ', 'บริษัททำความสะอาด (FM) / อาคาร', 'โรงงานอุตสาหกรรม', 'เจ้าของแบรนด์ OEM / โมเดิร์นเทรด', 'ผู้นำเข้า / ส่งออก', 'อื่นๆ'];
-const endpoint = site.form.endpoint;
+const tips = [
+  'สินค้าที่สนใจ (ถุงแดงติดเชื้อ ถุงรีไซเคิล ถุงดำ ถุงแยกสี หรือ OEM)',
+  'ขนาดและความหนา หรือแนบไฟล์ TOR',
+  'ปริมาณที่ต้องการ (กก. หรือ ตัน ต่อเดือน)',
+  'ถ้าต้องการชุดตัวอย่างฟรี แจ้งที่อยู่จัดส่ง',
+];
 ---
 <Base
-  title="ขอใบเสนอราคาและชุดตัวอย่างฟรี"
-  description="ขอใบเสนอราคาถุงขยะสำหรับองค์กร และขอรับชุดตัวอย่างสินค้าฟรี (B2B Sample Kit) กรอกสเปกและปริมาณที่ต้องการ ทีมขายติดต่อกลับ"
+  title="ติดต่อเรา ทัก LINE ขอใบเสนอราคา"
+  description="ทัก LINE คุยกับฝ่ายขาย World Class Plastic ได้ทันที ขอใบเสนอราคาถุงขยะสำหรับองค์กรและขอรับชุดตัวอย่างฟรี ไม่ต้องกรอกแบบฟอร์ม"
 >
   <PageHero
-    title="ขอใบเสนอราคาและชุดตัวอย่าง"
-    lead="กรอกข้อมูลด้านล่าง ทีมขายจะติดต่อกลับพร้อมราคาและรายละเอียดสเปก"
+    title="ติดต่อเรา"
+    lead="ทัก LINE คุยกับฝ่ายขายได้ทันที ขอใบเสนอราคาหรือชุดตัวอย่างฟรี ไม่ต้องกรอกแบบฟอร์ม"
     crumbs={[{ name: 'ติดต่อเรา' }]}
   />
 
   <section class="section">
     <div class="wrap layout">
-      <form id="quote-form" class="form" method="post" action={endpoint || undefined} data-endpoint={endpoint}>
-        {!endpoint && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>ฟอร์มยังไม่ได้เชื่อมระบบรับข้อมูล (ตั้งค่าที่ src/data/site.ts → form.endpoint)</span></p>}
+      <div class="line-card" id="line">
+        <h2>ทัก LINE ฝ่ายขาย</h2>
+        <p class="sub">LINE ID: <Fact f={c.lineId} /></p>
+        {c.lineQr
+          ? <img class="qr" src={c.lineQr} alt="QR code สำหรับเพิ่มเพื่อน LINE ฝ่ายขาย" width="220" height="220" />
+          : <div class="qr qr-todo"><mark class="todo">[QR code LINE OA]</mark></div>}
+        <a class="btn btn-line big" href={lineLink('สนใจขอใบเสนอราคาถุงขยะ')} rel="noopener">ทัก LINE คุยกับฝ่ายขาย</a>
+        <a class="btn btn-outline big" href={c.phoneHref}>หรือโทร <Fact f={c.phone} /></a>
+        {!c.lineOaId && <p class="pending" role="note"><span aria-hidden="true">⚠</span><span>รอ LINE OA ID จริง (ตั้งค่าที่ src/data/site.ts → contact.lineOaId) ตอนนี้ปุ่ม LINE ทุกปุ่มจะพามาที่หน้านี้</span></p>}
 
-        <fieldset>
-          <legend>ข้อมูลผู้ติดต่อ</legend>
-          <label>ชื่อบริษัท / หน่วยงาน *<input name="company" required autocomplete="organization" /></label>
-          <label>ชื่อผู้ติดต่อ *<input name="name" required autocomplete="name" /></label>
-          <div class="row">
-            <label>เบอร์โทรศัพท์ *<input name="phone" type="tel" required autocomplete="tel" inputmode="tel" /></label>
-            <label>LINE ID<input name="line_id" /></label>
-          </div>
-          <label>อีเมล<input name="email" type="email" autocomplete="email" /></label>
-          <label>ประเภทธุรกิจ *
-            <select name="business_type" required>
-              <option value="">เลือกประเภทธุรกิจ</option>
-              {businessTypes.map((b) => <option>{b}</option>)}
-            </select>
-          </label>
-        </fieldset>
-
-        <fieldset>
-          <legend>สินค้าที่สนใจ</legend>
-          <div class="checks">
-            {products.map((p) => (
-              <label class="check"><input type="checkbox" name="products" value={p.name} data-slug={p.slug} />{p.name}</label>
-            ))}
-            <label class="check"><input type="checkbox" name="products" value="รับผลิต OEM" />รับผลิต OEM สร้างแบรนด์</label>
-          </div>
-          <div class="row">
-            <label>ปริมาณคาดการณ์<input name="quantity" inputmode="decimal" placeholder="เช่น 500" /></label>
-            <label>หน่วย
-              <select name="unit"><option>กก./เดือน</option><option>ตัน/เดือน</option><option>กก./ครั้ง</option><option>ตัน/ครั้ง</option></select>
-            </label>
-          </div>
-          <label>รายละเอียดเพิ่มเติม<textarea name="message" rows="4" placeholder="ขนาด สี ความหนา หรือข้อกำหนด TOR"></textarea></label>
-        </fieldset>
-
-        <fieldset class="sample">
-          <label class="check strong"><input type="checkbox" id="want-sample" name="want_sample" value="yes" />ต้องการรับชุดตัวอย่างสินค้าฟรีสำหรับองค์กร (Sample Kit)</label>
-          <label class="sample-address">ที่อยู่จัดส่งตัวอย่าง<textarea name="sample_address" rows="3" autocomplete="street-address"></textarea></label>
-        </fieldset>
-
-        <label class="check consent"><input type="checkbox" name="consent" required />ยินยอมให้บริษัทใช้ข้อมูลนี้เพื่อติดต่อกลับเรื่องใบเสนอราคาและตัวอย่างสินค้า *</label>
-
-        <button class="btn btn-primary" type="submit">ส่งคำขอใบเสนอราคา</button>
-        <p class="form-msg" role="status" hidden></p>
-      </form>
+        <h3>แจ้งข้อมูลนี้ในแชต จะได้ราคาเร็วขึ้น</h3>
+        <ul class="checklist">{tips.map((t) => <li>{t}</li>)}</ul>
+      </div>
 
       <aside class="info">
-        <h2>ติดต่อฝ่ายขายองค์กร</h2>
+        <h2>ข้อมูลติดต่อ</h2>
         <ul>
           <li><strong>โทร</strong><a href={c.phoneHref}><Fact f={c.phone} /></a></li>
-          <li><strong>LINE OA</strong>{c.lineUrl ? <a href={c.lineUrl}><Fact f={c.lineId} /></a> : <Fact f={c.lineId} />}</li>
+          <li><strong>LINE OA</strong><Fact f={c.lineId} /></li>
           <li><strong>อีเมล</strong><Fact f={c.email} /></li>
           <li><strong>เวลาทำการ</strong><Fact f={c.hours} /></li>
         </ul>
@@ -89,58 +59,18 @@ const endpoint = site.form.endpoint;
   </section>
 </Base>
 
-<script>
-  const form = document.getElementById('quote-form') as HTMLFormElement | null;
-  if (form) {
-    const params = new URLSearchParams(location.search);
-    if (params.get('sample') === '1') (form.querySelector('#want-sample') as HTMLInputElement).checked = true;
-    const slug = params.get('product');
-    if (slug) {
-      const box = form.querySelector<HTMLInputElement>(`input[data-slug="${CSS.escape(slug)}"]`);
-      if (box) box.checked = true;
-    }
-    const msg = form.querySelector('.form-msg') as HTMLElement;
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const endpoint = form.dataset.endpoint;
-      msg.hidden = false;
-      if (!endpoint) {
-        msg.textContent = 'ระบบส่งฟอร์มยังไม่เปิดใช้งาน กรุณาโทรหรือติดต่อทาง LINE';
-        return;
-      }
-      msg.textContent = 'กำลังส่ง...';
-      try {
-        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(String(res.status));
-        form.reset();
-        msg.textContent = 'ส่งคำขอเรียบร้อย ทีมขายจะติดต่อกลับโดยเร็ว';
-      } catch {
-        msg.textContent = 'ส่งไม่สำเร็จ กรุณาลองใหม่ หรือโทรหาฝ่ายขาย';
-      }
-    });
-  }
-</script>
-
 <style>
   .layout { display: grid; gap: 40px; align-items: start; }
-  @media (min-width: 960px) { .layout { grid-template-columns: 1.4fr 1fr; } }
-  .form { display: grid; gap: 20px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(20px, 3vw, 32px); box-shadow: var(--shadow); }
-  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; }
-  legend { font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; }
-  label { display: grid; gap: 6px; font-weight: 500; font-size: 0.98rem; }
-  input:not([type='checkbox']), select, textarea { font: inherit; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: #fff; width: 100%; min-height: 48px; }
-  input:focus, select:focus, textarea:focus { border-color: var(--primary-700); outline: 2px solid rgb(29 58 102 / 0.2); }
-  .row { display: grid; gap: 14px; }
-  @media (min-width: 560px) { .row { grid-template-columns: 1fr 1fr; } }
-  .checks { display: grid; gap: 8px; }
-  .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
-  .check input { width: 20px; height: 20px; margin-top: 4px; flex: none; accent-color: var(--green); }
-  .check.strong { font-weight: 600; }
-  .sample { background: var(--green-50); border-radius: 10px; padding: 16px; }
-  .sample-address { display: none; }
-  .sample:has(#want-sample:checked) .sample-address { display: grid; }
-  .consent { font-size: 0.92rem; color: var(--muted); }
-  .form-msg { margin: 0; font-weight: 600; color: var(--primary); }
+  @media (min-width: 960px) { .layout { grid-template-columns: 1.2fr 1fr; } }
+  .line-card { display: grid; gap: 14px; justify-items: center; text-align: center; background: #fff; border: 1px solid var(--border); border-top: 6px solid #06c755; border-radius: var(--radius); padding: clamp(24px, 4vw, 40px); box-shadow: var(--shadow); }
+  .line-card h2 { margin: 0; }
+  .sub { margin: 0; color: var(--muted); }
+  .qr { width: 220px; height: 220px; border-radius: 12px; border: 1px solid var(--border); }
+  .qr-todo { display: grid; place-items: center; background: var(--gray-50); }
+  .big { width: 100%; max-width: 360px; min-height: 56px; font-size: 1.1rem; }
+  .line-card h3 { margin: 16px 0 0; font-size: 1.05rem; }
+  .line-card .checklist { text-align: left; }
+  .line-card .pending { text-align: left; margin: 0; }
   .info h2 { font-size: 1.15rem; margin-top: 24px; }
   .info h2:first-child { margin-top: 0; }
   .info ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }

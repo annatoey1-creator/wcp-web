@@ -7,7 +7,7 @@ import Pending from '../../components/Pending.astro';
 import CtaSample from '../../components/CtaSample.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { products, type Product } from '../../data/products';
-import { site } from '../../data/site';
+import { site, lineLink } from '../../data/site';
 
 export function getStaticPaths() {
   return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -42,7 +42,7 @@ const ld = {
           </ul>
           <p><strong>เหมาะกับ:</strong> {p.audience}</p>
           <div class="btn-row">
-            <a class="btn btn-primary" href={`/contact?product=${p.slug}#quote-form`}>ขอใบเสนอราคาสินค้านี้</a>
+            <a class="btn btn-line" href={lineLink(`สนใจขอใบเสนอราคา ${p.name}`)} rel="noopener">ทัก LINE ขอราคาสินค้านี้</a>
             {p.specSheet
               ? <a class="btn btn-outline" href={p.specSheet} download>ดาวน์โหลด Spec Sheet (PDF)</a>
               : <span class="btn btn-outline" aria-disabled="true" title="ยังไม่มีไฟล์ PDF">Spec Sheet PDF (เร็วๆ นี้)</span>}
@@ -68,7 +68,7 @@ const ld = {
     </section>
   )}
 
-  <div class="wrap"><CtaSample /></div>
+  <div class="wrap"><CtaSample message={`สนใจขอรับตัวอย่าง ${p.name}`} /></div>
 
   <section class="section alt">
     <div class="wrap">
