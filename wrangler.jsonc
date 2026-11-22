@@ -1,0 +1,14 @@
+// ตั้งค่าการขึ้นเว็บบน Cloudflare Workers
+// เว็บเป็นไฟล์ static ทั้งหมด (สร้างด้วย npm run build ไว้ที่โฟลเดอร์ dist) ไม่มีโค้ดฝั่งเซิร์ฟเวอร์
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "wcp-web",
+  "compatibility_date": "2025-11-01",
+  "assets": {
+    "directory": "./dist",
+    // /about เปิดไฟล์ about.html ให้อัตโนมัติ
+    "html_handling": "auto-trailing-slash",
+    // พิมพ์ที่อยู่ผิด ให้แสดงหน้า "ไม่พบหน้านี้" ของเว็บ (404.html)
+    "not_found_handling": "404-page"
+  }
+}
