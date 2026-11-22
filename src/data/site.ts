@@ -34,6 +34,9 @@ export const site = {
   // เปิดให้ Google เก็บข้อมูลหรือยัง เปลี่ยนเป็น true เมื่อข้อมูลจริงครบ (npm run check:data ต้องผ่าน)
   indexable: false,
 
+  // Google Tag Manager (เจ้าของให้มาในแชต 2026-11-22) ถ้าเว้นว่างจะไม่ใส่โค้ด GTM
+  gtmId: 'GTM-TT8M8VBQ',
+
   url: 'https://wcp-web.vercel.app',
   brand: 'World Class Plastic',
   nameTh: confirmed('บริษัท เวิลด์คลาสพลาสติก จำกัด'), // เจ้าของยืนยันในแชต 2026-11-22
