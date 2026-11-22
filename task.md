@@ -67,4 +67,4 @@
 - [x] ระบบตรวจข้อมูล (`npm run check:data`) และ noindex ระหว่างรอข้อมูล
 - [x] ตัดฉลากเขียวออกทั้งหมด
 - [x] เขียน AGENTS.md และอัปเดต CLAUDE.md
-- [x] ปรับธีมเป็นเขียวเข้ม + ทอง และ hero แบบสไลด์ ตาม mockup v1 (inboxbackupweb-v1.png)
+- [x] ปรับธีมเป็นเขียวเข้ม + ทอง และ hero แบบสไลด์ ตาม mockup v1 (`inbox/backup/web-v1.png`)
