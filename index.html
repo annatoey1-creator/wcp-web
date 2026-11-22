@@ -3,116 +3,361 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WCP Web</title>
-  <meta name="description" content="หน้าทดสอบการ deploy ของ wcp-web บน Vercel">
-  <style>
-    :root {
-      --bg: #f6f7f9;
-      --card: #ffffff;
-      --text: #1a1d23;
-      --muted: #5f6672;
-      --accent: #2563eb;
-      --ok: #16a34a;
-      --border: #e3e6eb;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1115;
-        --card: #181b21;
-        --text: #e8eaee;
-        --muted: #9aa1ad;
-        --accent: #60a5fa;
-        --ok: #4ade80;
-        --border: #2a2f38;
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 16px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans Thai", sans-serif;
-      line-height: 1.6;
-    }
-    .card {
-      width: 100%;
-      max-width: 520px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px 28px;
-    }
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--ok);
-      font-weight: 600;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 25%, transparent);
-    }
-    h1 { margin: 12px 0 8px; font-size: 28px; }
-    p { margin: 0 0 20px; color: var(--muted); }
-    dl {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 8px 16px;
-      margin: 0;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-    }
-    dt { color: var(--muted); }
-    dd { margin: 0; word-break: break-all; }
-    button {
-      margin-top: 24px;
-      padding: 10px 18px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    button:active { transform: translateY(1px); }
-  </style>
+  <title>World Class Plastic</title>
+  <meta name="description" content="บจก.เวิลด์คลาสพลาสติก โรงงานผลิตและจัดจำหน่ายถุง HDPE ถุงขยะดำ ถุงขยะสี รับทำ OEM ประสบการณ์มากกว่า 20 ปี">
+  <link rel="icon" href="assets/images/brand/logo-mark.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <main class="card">
-    <span class="status"><span class="dot"></span> Deploy สำเร็จ</span>
-    <h1>WCP Web</h1>
-    <p>ถ้าเห็นหน้านี้ แปลว่า repo นี้ deploy ขึ้น Vercel ได้แล้ว</p>
 
-    <dl>
-      <dt>โดเมน</dt>
-      <dd id="host">-</dd>
-      <dt>เวลาที่เปิด</dt>
-      <dd id="time">-</dd>
-    </dl>
+  <div class="topbar">
+    <div class="wrap">
+      <span class="tag">To be one of the best Thai plastic recycle</span>
+      <span class="links">
+        <a href="https://www.facebook.com/worldclassplastic" target="_blank" rel="noopener">Facebook</a>
+        <a href="tel:0619682828">โทร 061-968-2828</a>
+      </span>
+    </div>
+  </div>
 
-    <button id="btn" type="button">ทดสอบ JavaScript</button>
-  </main>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#">
+        <img src="assets/images/brand/logo-mark.jpg" alt="โลโก้ World Class Plastic">
+        <span><b>World Class Plastic</b><small>บจก.เวิลด์คลาสพลาสติก</small></span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="เมนู">☰</button>
+      <nav id="nav">
+        <ul>
+          <li><a href="#about">เกี่ยวกับเรา</a></li>
+          <li><a href="#products">สินค้า</a></li>
+          <li><a href="#sizing">ขนาดมาตรฐาน</a></li>
+          <li><a href="#oem">รับทำ OEM</a></li>
+          <li><a href="#market">ลูกค้าของเรา</a></li>
+          <li><a href="#contact">ติดต่อเรา</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <script>
-    document.getElementById('host').textContent = location.host || '(ไฟล์ในเครื่อง)';
-    document.getElementById('time').textContent = new Date().toLocaleString('th-TH');
+  <!-- HERO -->
+  <section class="hero" style="padding:0">
+    <div class="slide active"><img src="assets/images/factory/production-line.jpg" alt=""></div>
+    <div class="slide"><img src="assets/images/gallery/packed-3.jpg" alt=""></div>
+    <div class="slide"><img src="assets/images/factory/film-roll.jpg" alt=""></div>
+    <div class="wrap hero-text">
+      <div class="eyebrow">WORLD CLASS PLASTIC CO.,LTD.</div>
+      <h1>โรงงานถุงพลาสติก<span>ผลิตและจัดจำหน่ายถุง HDPE</span></h1>
+      <p>ผู้ผลิตและจัดจำหน่ายถุง HDPE ทุกชนิด เช่น ถุงขยะดำและถุงขยะสีต่าง ๆ รับทำ OEM การันตีคุณภาพและบริการที่ดี ด้วยประสบการณ์มากกว่า 20 ปี ยอดขายมากกว่า 200 ตันต่อเดือน</p>
+      <div class="badges"><span>✓ รับทำ OEM ถุงพลาสติก</span><span>✓ ได้มาตรฐาน</span><span>✓ รับประกันคุณภาพสินค้า</span></div>
+      <div>
+        <a class="btn btn-gold" href="tel:0619682828">โทร 061-968-2828</a>
+        <a class="btn btn-ghost" href="#products">ดูสินค้า</a>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+  </section>
 
-    let clicks = 0;
-    document.getElementById('btn').addEventListener('click', function () {
-      clicks += 1;
-      this.textContent = 'JavaScript ทำงานได้ (' + clicks + ')';
-    });
-  </script>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about">
+        <div>
+          <div class="eyebrow-sm">Introduction</div>
+          <h2 class="h2">บริษัท เวิลด์คลาสพลาสติก จำกัด</h2>
+          <p>เป็นผู้เชี่ยวชาญด้านการผลิตถุงพลาสติกรีไซเคิล เช่น ถุงขยะสีดำ สีแดง และสีอื่น ๆ ด้วยประสบการณ์มากกว่า 20 ปี ทำให้เป็นที่ยอมรับทั้งในภาครัฐและเอกชน การันตีคุณภาพสินค้าและบริการ ใส่ใจทุกขั้นตอนตั้งแต่การคัดสรรวัตถุดิบจนไปถึงกระบวนการผลิต</p>
+          <p>เราผลิตถุงพลาสติกหลากหลายขนาดเพื่อตอบสนองความต้องการของลูกค้า เพื่อจัดจำหน่ายในภาคอุตสาหกรรมต่าง ๆ ทั้งในประเทศและต่างประเทศ หรือผลิตภายใต้แบรนด์ลูกค้า (OEM)</p>
+        </div>
+        <div class="about-photo">
+          <img class="main" src="assets/images/factory/film-roll.jpg" alt="ม้วนฟิล์ม HDPE ในเครื่องผลิต">
+        </div>
+      </div>
+
+      <div class="stats">
+        <div><b>20+</b><span>ปีประสบการณ์</span></div>
+        <div><b>200+</b><span>ตัน ยอดขายต่อเดือน</span></div>
+        <div><b>3+</b><span>ตัน กำลังผลิตต่อวัน</span></div>
+        <div><b>300</b><span>กก. MOQ ขั้นต่ำการผลิต</span></div>
+      </div>
+
+      <div class="trio">
+        <img src="assets/images/gallery/packed-1.jpg" alt="ถุงขยะแพ็คพร้อมส่ง">
+        <img src="assets/images/gallery/packed-2.jpg" alt="ถุงขยะแพ็คพร้อมส่ง">
+        <img src="assets/images/gallery/packed-3.jpg" alt="ถุงขยะหลากสีหลายขนาด">
+      </div>
+      <p class="quote">“ผลิตสินค้าคุณภาพ ภายใต้เงื่อนไขความพึงพอใจของลูกค้า และพัฒนาอย่างต่อเนื่อง”</p>
+    </div>
+  </section>
+
+  <!-- STRENGTHS -->
+  <section class="soft">
+    <div class="wrap strength">
+      <div>
+        <div class="eyebrow-sm">Our strength point</div>
+        <h2 class="h2" style="margin-bottom:28px">จุดแข็งของเรา</h2>
+        <div class="points">
+          <div><h3>รับทำ OEM</h3><p>บริการครบวงจรตั้งแต่การออกแบบแพ็คเกจสินค้า ขึ้นบล็อคพิมพ์ และผลิตสินค้าตามขนาดที่ลูกค้าต้องการ ภายใต้แบรนด์ของลูกค้า</p></div>
+          <div><h3>บริการจัดส่ง</h3><p>จัดส่งทั่วประเทศไทยและส่งออกไปยังประเทศเพื่อนบ้าน</p></div>
+          <div><h3>ได้มาตรฐาน QC</h3><p>ประสบการณ์มากกว่า 20 ปี เป็นที่ยอมรับทั้งภาครัฐและเอกชน การันตีด้วยยอดขายและการผลิตมากกว่า 200 ตันต่อเดือน</p></div>
+          <div><h3>การผลิตที่รวดเร็ว</h3><p>มีโรงงานผลิตเอง รองรับการผลิตได้มากกว่า 3 ตันต่อวัน มีสต๊อกสินค้าสำหรับจัดส่งทุกขนาด</p></div>
+          <div><h3>ควบคุมคุณภาพอย่างแม่นยำ</h3><p>มีโรงงานผลิตวัตถุดิบเอง (โรงงานผลิตเม็ดพลาสติก) สินค้าจึงคงคุณภาพที่ดี</p></div>
+          <div><h3>คุณภาพสินค้าดีเยี่ยม</h3><p>ถุงเหนียว ฉีกขาดยาก ใส่ได้ทั้งขยะเปียกและขยะแห้ง เนื้อเหนียวรับน้ำหนักได้มาก คุณภาพเกรดส่งออก</p></div>
+        </div>
+      </div>
+      <div class="strength-photo">
+        <img class="main" src="assets/images/factory/production-line.jpg" alt="สายการผลิตฟิล์ม HDPE ในโรงงาน">
+        <img class="inset" src="assets/images/factory/pellets.jpg" alt="เม็ดพลาสติกที่ผลิตเอง">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow-sm">The products</div>
+        <h2>สินค้าของเรา</h2>
+        <p>เราสามารถผลิตได้ตามแบบที่ลูกค้าต้องการ เพื่อความพึงพอใจของลูกค้าสูงสุด</p>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="active" data-tab="color">ถุงขยะสีและงานพิเศษ</button>
+        <button data-tab="black">ถุงขยะดำ / หูหิ้วดำ</button>
+        <button data-tab="handle">ถุงหูหิ้ว / ถุงร้อน-เย็น</button>
+      </div>
+
+      <div class="panel grid active" data-panel="color">
+        <div class="card"><div class="img"><img src="assets/images/products/white.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีขาวขุ่น</h3><p>ดูสะอาดและเรียบร้อย เหมาะกับสถานพยาบาล ห้องน้ำ สำนักงาน ห้องครัว หรือที่อื่น ๆ</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/red.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีแดง</h3><p>ใช้เก็บขยะอันตรายทางชีวภาพในสถานพยาบาลและโรงพยาบาล หรือสิ่งของที่อาจเป็นอันตราย</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/yellow.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีเหลือง</h3><p>สำหรับขยะรีไซเคิลที่นำกลับมาใช้ประโยชน์หรือขายได้ เช่น กระดาษ พลาสติก โลหะ</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/green.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีเขียว</h3><p>สำหรับเปลือกผลไม้ ผัก กิ่งไม้ ใบไม้ และวัสดุอินทรีย์ที่ย่อยสลายได้</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/blue.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีน้ำเงิน</h3><p>สำหรับวัสดุอุตสาหกรรมที่ต้องการความทนทานสูง เช่น พลาสติกและแก้วน้ำหนักมาก หรือรวบรวมพลาสติกรีไซเคิล</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/black.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีดำ</h3><p>สำหรับขยะที่ไม่ติดเชื้อและไม่ย่อยสลายทางชีวภาพ เช่น กระดาษห่อขนม โฟม กระป๋อง พลาสติก</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/red-print.jpg" alt=""></div><div class="body"><h3>ถุงขยะสีแดงพิมพ์</h3><p>สำหรับโรงพยาบาลที่ต้องสกรีนถุงโดยเฉพาะ เช่น ชื่อโรงพยาบาล</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/hdpe-roll.jpg" alt=""></div><div class="body"><h3>ม้วน HDPE</h3><p>สำหรับห่อเฟอร์นิเจอร์</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/latex.jpg" alt=""></div><div class="body"><h3>ถุงใส่น้ำยาง</h3><p>สำหรับบรรจุน้ำยาง ผลิตจากเม็ด PE</p></div></div>
+        <div class="card"><div class="img"><img src="assets/images/products/box-liner.jpg" alt=""></div><div class="body"><h3>ถุงรองกล่อง</h3><p>สำหรับปลูกผัก</p></div></div>
+      </div>
+
+      <div class="panel grid" data-panel="black">
+        <div class="card"><div class="img white"><img src="assets/images/products/handle-thin.jpg" alt=""></div><div class="body"><h3>ถุงหูหิ้วดำบาง A</h3><p>บรรจุ 160 g.</p><div class="sizes"><b>ขนาด (นิ้ว) / จำนวน</b><br>18×20 30 ใบ · 24×28 15 ใบ<br>26×34 12 ใบ · 30×40 7 ใบ</div></div></div>
+        <div class="card"><div class="img white"><img src="assets/images/products/black-thin.jpg" alt=""></div><div class="body"><h3>ถุงขยะดำบาง A</h3><p>บรรจุ 160 g.</p><div class="sizes"><b>ขนาด (นิ้ว) / จำนวน</b><br>18×20 30 ใบ · 24×28 15 ใบ<br>26×34 12 ใบ · 30×40 7 ใบ</div></div></div>
+        <div class="card"><div class="img white"><img src="assets/images/products/handle-thick.jpg" alt=""></div><div class="body"><h3>ถุงหูหิ้วดำหนา B</h3><p>บรรจุ 1 กก.</p><div class="sizes"><b>ขนาด (นิ้ว) / จำนวน</b><br>18×20 48 ใบ · 24×28 24 ใบ<br>26×34 15 ใบ · 30×40 7 ใบ</div></div></div>
+      </div>
+
+      <div class="panel grid" data-panel="handle">
+        <div class="card"><div class="img white"><img src="assets/images/products/ga-thin.jpg" alt=""></div><div class="body"><h3>ถุงหูหิ้วงา แบบบาง</h3><div class="sizes"><b>ขนาด (นิ้ว)</b><br>6×11, 6×14, 7×15, 8×16, 9×18, 12×20, 12×26, 15×30, 18×36</div></div></div>
+        <div class="card"><div class="img white"><img src="assets/images/products/ga-thick.jpg" alt=""></div><div class="body"><h3>ถุงหูหิ้วงา แบบหนา</h3><div class="sizes"><b>ขนาด (นิ้ว)</b><br>6×11, 6×14, 7×15, 8×16, 9×18, 12×20, 12×26, 15×30, 18×36</div></div></div>
+        <div class="card"><div class="img white"><img src="assets/images/products/cold.jpg" alt=""></div><div class="body"><h3>ถุงเย็นมงกุฎ</h3><div class="sizes"><b>ขนาด (นิ้ว)</b><br>4×6, 5×9, 6×9, 6×10, 6×11, 7×11, 8×12, 9×14, 10×15, 12×18</div></div></div>
+        <div class="card"><div class="img white"><img src="assets/images/products/pp.jpg" alt=""></div><div class="body"><h3>ถุงร้อนมงกุฎ PP</h3><div class="sizes"><b>ขนาด (นิ้ว)</b><br>2×4 ถึง 30×50 มากกว่า 40 ขนาด เช่น 4×6, 6×9, 7×11, 8×12, 9×14, 10×15, 12×18, 16×24, 24×36</div></div></div>
+      </div>
+
+      <div class="bestseller">
+        <img src="assets/images/products/bestseller.jpg" alt="หมวดสินค้าขายดี: ถุงขยะแบบหนา ถุงขยะมีหูหิ้ว ถุงขยะม้วน ถุงขยะแยกสี ถุงขยะม้วนหูผูก">
+        <div>
+          <div class="eyebrow-sm">Best seller</div>
+          <h2 class="h2">หมวดสินค้าขายดี</h2>
+          <p style="color:var(--muted)">เลือกหมวดสินค้าให้เหมาะกับการใช้งาน</p>
+          <ul>
+            <li><b>ถุงขยะแบบหนา</b> หนาพิเศษ ไม่ขาดง่าย รองรับงานหนัก</li>
+            <li><b>ถุงขยะมีหูหิ้ว</b> รับน้ำหนักดี มัดง่าย ใช้งานสะดวก</li>
+            <li><b>ถุงขยะม้วน</b> ดึงง่าย ใช้งานสะดวก เหนียวพิเศษ</li>
+            <li><b>ถุงขยะแยกสี</b> หนาพิเศษ ไม่ขาดง่าย รองรับงานหนัก</li>
+            <li><b>ถุงขยะม้วนหูผูก</b> ผูกง่าย ใช้งานสะดวก มีกลิ่นหอม</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALITY -->
+  <section class="soft">
+    <div class="wrap quality">
+      <img src="assets/images/factory/thickness-gauge.jpg" alt="วัดความหนาถุงด้วยเครื่องวัด ได้ 0.12 มม.">
+      <div>
+        <div class="eyebrow-sm">Quality test</div>
+        <h2 class="h2">ทดสอบคุณภาพทุกล็อต</h2>
+        <p style="color:var(--muted)">ถุงมีคุณสมบัติเหนียว ฉีกขาดยาก ใส่ได้ทั้งขยะเปียกและขยะแห้ง เหมาะสำหรับงานหนักในอุตสาหกรรมต่าง ๆ</p>
+        <ul class="checks">
+          <li>เนื้อถุงเนียนและเงา</li>
+          <li>ผลิตจากเม็ดพลาสติก HDPE อย่างดี</li>
+          <li>ยืดหยุ่นสูง</li>
+          <li>รับน้ำหนักได้มาก</li>
+          <li>ทนต่อการใช้งานหนัก</li>
+          <li>เนื้อถุงเหนียวและหนา</li>
+          <li>รุ่นหนาพิเศษ หนามากกว่า 0.12 mm.</li>
+          <li>กลิ่นน้อย ไม่ฉุน</li>
+        </ul>
+        <p style="font-family:Prompt;font-weight:600;color:var(--green-dark);margin:0">“เนื้อเหนียวรับน้ำหนักได้มาก คุณภาพเกรดส่งออก”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZING -->
+  <section id="sizing">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow-sm">Standard sizing</div>
+        <h2>ขนาดมาตรฐานถุงขยะ</h2>
+      </div>
+      <div class="sizing">
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ขนาดถุงขยะ (นิ้ว)</th><th>จำนวนใบ / กก.</th><th>ความหนา (มม.)</th><th>พับข้าง</th></tr></thead>
+              <tbody>
+                <tr><td>18×20</td><td>54-55</td><td>0.11</td><td>12+3+3</td></tr>
+                <tr><td>20×30</td><td>27-28</td><td>0.14</td><td>14+3+3</td></tr>
+                <tr><td>22×30</td><td>25-26</td><td>0.15</td><td>16+3+3</td></tr>
+                <tr><td>24×28</td><td>24-25</td><td>0.15</td><td>16+4+4</td></tr>
+                <tr><td>24×30</td><td>19-20</td><td>0.16</td><td>16+4+4</td></tr>
+                <tr><td>26×30</td><td>15-16</td><td>0.16</td><td>16+5+5</td></tr>
+                <tr><td>28×36</td><td>14-15</td><td>0.16</td><td>18+5+5</td></tr>
+                <tr><td>30×40</td><td>10-11</td><td>0.16</td><td>20+5+5</td></tr>
+                <tr><td>36×45</td><td>7-8</td><td>0.16</td><td>26+5+5</td></tr>
+                <tr><td>40×60</td><td>4-5</td><td>0.17</td><td>28+8+8</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="moq">
+            <li>ถุงขยะดำ MOQ ในการผลิต 300 กก. สามารถคละขนาดได้</li>
+            <li>ถุงขยะสีอื่น ๆ MOQ ในการผลิต 300 กก. ต่อขนาด</li>
+            <li>ถุงพิมพ์ต่าง ๆ MOQ ในการผลิต 300 กก. ต่อขนาด</li>
+          </ul>
+        </div>
+        <img src="assets/images/oem/labels.jpg" alt="ตัวอย่างฉลากถุงขยะแต่ละขนาด">
+      </div>
+    </div>
+  </section>
+
+  <!-- OEM PRICING -->
+  <section id="oem" class="soft">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow-sm">Pricing for OEM</div>
+        <h2>แพ็กเกจรับทำ OEM</h2>
+        <p>สร้างแบรนด์ถุงขยะของคุณเอง ตั้งแต่ออกแบบแพ็คเกจจนถึงผลิตและจัดส่ง</p>
+      </div>
+      <div class="pricing">
+        <div class="plan">
+          <h3>BASIC</h3>
+          <div class="price" style="background:#d9452f">9,600 บาท</div>
+          <ul><li>ตรากระดาษ ขนาด 6.5 × 11 cm.</li><li>ตรากระดาษพิมพ์ 3-4 สี</li><li>ถุงขยะสีดำ จำนวน 300 กก.</li></ul>
+          <div class="img"><img src="assets/images/oem/basic.jpg" alt="ตัวอย่างแพ็กเกจ Basic"></div>
+        </div>
+        <div class="plan">
+          <h3>STANDARD</h3>
+          <div class="price" style="background:#e9a91c">74,700 บาท</div>
+          <ul><li>ถุงสวม 1 แบบ</li><li>ถุงสวมสกีน 3 สี จำนวน 34,000 ใบ</li><li>ถุงขยะสีดำ จำนวน 1,000 กก.</li><li>Packaging Design</li></ul>
+          <div class="img"><img src="assets/images/oem/standard.jpg" alt="ตัวอย่างแพ็กเกจ Standard"></div>
+        </div>
+        <div class="plan featured">
+          <h3>PREMIUM</h3>
+          <div class="price" style="background:#3bbfae">84,700 บาท</div>
+          <ul><li>ถุงสวม 1 แบบ</li><li>ถุงสวมสกีน 3 สี จำนวน 34,000 ใบ</li><li>ถุงขยะสีดำ จำนวน 1,000 กก.</li><li>Logo &amp; Packaging Design</li></ul>
+          <div class="img"><img src="assets/images/oem/premium.jpg" alt="ตัวอย่างแพ็กเกจ Premium"></div>
+        </div>
+        <div class="plan">
+          <h3>PROFESSIONAL</h3>
+          <div class="price" style="background:#123a6e">153,500 บาท</div>
+          <ul><li>ถุงสวม ทั้งหมด 9 แบบ</li><li>ถุงสวมสกีน 3 สี จำนวน 153,000 ใบ</li><li>ถุงขยะสีดำ จำนวน 1,000 กก.</li><li>Branding, Logo &amp; Packaging, Character design</li></ul>
+          <div class="img"><img src="assets/images/oem/professional.jpg" alt="ตัวอย่างแพ็กเกจ Professional"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market">
+    <div class="wrap market">
+      <div>
+        <div class="eyebrow-sm">Market presence</div>
+        <h2 class="h2">ลูกค้าไว้วางใจทั่วประเทศ</h2>
+        <p>สินค้าของบริษัทเป็นที่ยอมรับอย่างกว้างขวาง มีบริษัทและร้านค้าที่เป็นลูกค้าอยู่ทั่วประเทศ ลูกค้าส่วนใหญ่ใช้บริการอย่างต่อเนื่องเพราะพึงพอใจในคุณภาพของสินค้าและบริการ และยังแนะนำบอกต่อกันในกลุ่มลูกค้า รวมถึงได้พรีเซนเตอร์จากทีมงานแมวบินในการโปรโมทสินค้าทางออนไลน์</p>
+        <p>สินค้าของเราได้รับความยอมรับทั้งจากภาครัฐและเอกชน เช่น โรงพยาบาล โรงงานอุตสาหกรรม มหาวิทยาลัย สำนักงาน บ้านเรือน ตลอดจนสถานที่ต่าง ๆ</p>
+        <p>เรามีช่องทางขายปลีกใน Shopee พร้อมรีวิวจากลูกค้าผู้ใช้งานจริง ที่ยืนยันว่าถุงของเราหนาและเหนียว</p>
+        <div class="channels"><span>Facebook</span><span>Shopee</span><span>TikTok</span></div>
+      </div>
+      <div class="photos">
+        <img class="big" src="assets/images/gallery/event-1.jpg" alt="กิจกรรมร่วมกับลูกค้า">
+        <img src="assets/images/gallery/event-2.jpg" alt="กิจกรรมทดสอบถุงขยะ">
+        <img src="assets/images/gallery/event-3.jpg" alt="ถุงขยะรับน้ำหนักของจริง">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="wrap">
+      <div>
+        <h2>ต้องการถุงพลาสติกคุณภาพ หรือสร้างแบรนด์ของคุณเอง?</h2>
+        <p>ปรึกษาและสอบถามราคาได้เลย เราผลิตได้ตามแบบที่ลูกค้าต้องการ</p>
+      </div>
+      <a class="btn btn-gold" href="tel:0619682828">โทร 061-968-2828</a>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <div class="eyebrow-sm">Contact</div>
+        <h2 class="h2">ติดต่อเรา</h2>
+        <ul class="info">
+          <li><b>บริษัท</b><span>บจก.เวิลด์คลาสพลาสติก<br>World Class Plastic Co.,Ltd.</span></li>
+          <li><b>โทร</b><a href="tel:0619682828">061-968-2828</a></li>
+          <li><b>Facebook</b><a href="https://www.facebook.com/worldclassplastic" target="_blank" rel="noopener">facebook.com/worldclassplastic</a></li>
+          <li><b>ที่อยู่</b><span class="placeholder">[ที่อยู่บริษัท]</span></li>
+          <li><b>LINE</b><span class="placeholder">[LINE ID]</span></li>
+          <li><b>อีเมล</b><span class="placeholder">[อีเมล]</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="map">แผนที่ Google Maps<br>(ใส่เมื่อได้ที่อยู่จริง)</div>
+        <form onsubmit="event.preventDefault(); alert('นี่คือ mockup: ฟอร์มยังไม่ได้เชื่อมต่อระบบส่งข้อความ');">
+          <input placeholder="ชื่อ - นามสกุล / บริษัท" required>
+          <input placeholder="เบอร์โทร / อีเมล" required>
+          <textarea placeholder="สินค้า ขนาด และจำนวนที่ต้องการ"></textarea>
+          <button class="btn btn-green" type="submit">ส่งข้อความ</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img class="logo" src="assets/images/brand/logo-full.jpg" alt="World Class Plastic">
+          <p>บจก.เวิลด์คลาสพลาสติก ผู้ผลิตและจัดจำหน่ายถุง HDPE ถุงขยะดำ ถุงขยะสี รับทำ OEM ประสบการณ์มากกว่า 20 ปี</p>
+        </div>
+        <div>
+          <h3>เมนู</h3>
+          <ul>
+            <li><a href="#about">เกี่ยวกับเรา</a></li>
+            <li><a href="#products">สินค้า</a></li>
+            <li><a href="#sizing">ขนาดมาตรฐาน</a></li>
+            <li><a href="#oem">รับทำ OEM</a></li>
+            <li><a href="#contact">ติดต่อเรา</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>ติดต่อ</h3>
+          <ul>
+            <li><a href="tel:0619682828">061-968-2828</a></li>
+            <li><a href="https://www.facebook.com/worldclassplastic" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">© <span id="year"></span> World Class Plastic Co.,Ltd. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <div class="note">Mockup: ข้อความที่ไฮไลต์สีเหลืองยังเป็นตัวอย่าง</div>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
