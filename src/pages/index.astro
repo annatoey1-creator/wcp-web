@@ -216,7 +216,8 @@ const reasons = [
   .btn-outline-dark { border-color: var(--primary); color: var(--primary); background: rgb(255 255 255 / 0.85); }
   .btn-outline-dark:hover { background: var(--primary); color: #fff; }
   .line-badge { display: inline-grid; place-items: center; background: #fff; color: #06c755; font-size: 0.62rem; font-weight: 800; border-radius: 50%; width: 30px; height: 30px; letter-spacing: 0; }
-  .ico { color: var(--orange); flex-shrink: 0; }
+  /* ไอคอนเป็นคอมโพเนนต์แยก ต้องใช้ :global ให้สีส่งไปถึง */
+  :global(.ico) { color: var(--icon-gold); flex-shrink: 0; }
   .more { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-head); font-weight: 600; color: var(--primary-700); text-decoration: none; white-space: nowrap; }
   .more:hover { text-decoration: underline; }
 
@@ -232,7 +233,7 @@ const reasons = [
   .sub i { font-style: normal; color: var(--orange); margin-inline: 6px; }
   .points { list-style: none; padding: 0; margin: 0 0 28px; display: grid; grid-template-columns: repeat(2, max-content); gap: 10px 28px; }
   .points li { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-weight: 500; color: var(--primary); }
-  .points svg { color: var(--orange); }
+  .points :global(svg) { color: var(--icon-gold); }
   .quote { margin: 0; justify-self: end; align-self: start; max-width: 340px; padding: 18px 22px; border-radius: var(--radius); background: rgb(17 17 17 / 0.72); color: #fff;
     font-family: var(--font-head); font-size: 1.2rem; line-height: 1.5; font-style: italic; border-left: 4px solid var(--gold-soft); }
   @media (min-width: 960px) {
