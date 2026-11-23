@@ -2,14 +2,23 @@
 import { site, lineLink } from '../data/site';
 import { products } from '../data/products';
 import Fact from './Fact.astro';
+import Icon from './Icon.astro';
 const c = site.contact;
 ---
 <footer class="site-footer">
   <div class="wrap cols">
-    <div>
-      <p class="brand"><Fact f={site.nameTh} /></p>
+    <div class="about">
+      <a class="logo" href="/" aria-label={`${site.brand} หน้าแรก`}>
+        <img src="/images/brand/logo-mark.jpg" alt="" width="52" height="52" loading="lazy" />
+        <span><strong>WORLD CLASS PLASTIC</strong><small><Fact f={site.nameTh} /></small></span>
+      </a>
       <p>{site.tagline}</p>
-      <p>ที่อยู่: <Fact f={c.address} /><br />เลขประจำตัวผู้เสียภาษี: <Fact f={c.taxId} /></p>
+      <ul class="contact">
+        <li><Icon name="pin" size={18} /><span>ที่อยู่: <Fact f={c.address} /></span></li>
+        <li><Icon name="phone" size={18} /><span>โทร: <a href={c.phoneHref}><Fact f={c.phone} /></a></span></li>
+        <li><Icon name="mail" size={18} /><span>อีเมล: <Fact f={c.email} /></span></li>
+      </ul>
+      <p class="tax">เลขประจำตัวผู้เสียภาษี: <Fact f={c.taxId} /></p>
     </div>
     <div>
       <h2>สินค้า</h2>
@@ -26,25 +35,31 @@ const c = site.contact;
       </ul>
     </div>
     <div>
-      <h2>ติดต่อฝ่ายขาย</h2>
+      <h2>ติดตามเรา</h2>
       <ul>
-        <li>โทร: <a href={c.phoneHref}><Fact f={c.phone} /></a></li>
         <li><a href={lineLink()} target="_blank" rel="noopener noreferrer">LINE ฝ่ายขาย</a></li>
-        <li>อีเมล: <Fact f={c.email} /></li>
-        <li><a href={c.facebook.value} rel="noopener">Facebook</a></li>
+        <li><a href={c.facebook.value} target="_blank" rel="noopener noreferrer">Facebook</a></li>
       </ul>
       <a class="btn btn-line btn-sm" href={lineLink("สนใจขอใบเสนอราคาถุงขยะ")} target="_blank" rel="noopener noreferrer">ทัก LINE ขอใบเสนอราคา</a>
     </div>
   </div>
-  <div class="wrap copy">© {new Date().getFullYear()} {site.brand}</div>
+  <div class="wrap copy">© {new Date().getFullYear()} {site.brand} Co., Ltd. สงวนลิขสิทธิ์</div>
 </footer>
 <style>
-  .site-footer { background: var(--primary-900); color: #c9ddd0; padding-top: 56px; padding-bottom: 96px; font-size: 0.95rem; }
+  .site-footer { background: var(--primary-900); color: #bdb5a8; padding-top: 56px; padding-bottom: 96px; font-size: 0.95rem; }
   .cols { display: grid; gap: 32px; }
-  @media (min-width: 720px) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+  @media (min-width: 720px) { .cols { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
   h2 { color: #fff; font-size: 1rem; margin-bottom: 12px; }
-  .brand { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; line-height: 1.25; margin-bottom: 14px; }
+  .logo img { border-radius: 50%; }
+  .logo span { display: grid; }
+  .logo strong { font-family: var(--font-head); font-weight: 600; color: #fff; letter-spacing: 0.02em; }
+  .logo small { font-size: 0.82rem; color: #bdb5a8; }
   ul { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
-  a:not(.btn) { color: #e2e8f0; }
-  .copy { border-top: 1px solid rgb(255 255 255 / 0.15); margin-top: 40px; padding-top: 20px; font-size: 0.85rem; }
+  .contact li { display: flex; gap: 10px; align-items: flex-start; }
+  .contact svg { color: var(--gold-soft); flex-shrink: 0; margin-top: 4px; }
+  .tax { font-size: 0.88rem; }
+  a:not(.btn) { color: #ece6dc; }
+  a:not(.btn):hover { color: var(--gold-soft); }
+  .copy { border-top: 1px solid rgb(255 255 255 / 0.12); margin-top: 40px; padding-top: 20px; font-size: 0.85rem; }
 </style>

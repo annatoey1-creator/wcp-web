@@ -1,4 +1,4 @@
-# Crops website images out of the source slides in C:\projects\inbox\picture
+﻿# Crops website images out of the source slides in C:\projects\inbox\picture
 # and writes them to assets/images/<group>/<name>.jpg.
 # The source files are only read, never modified.
 #
@@ -84,5 +84,41 @@ $g = [System.Drawing.Graphics]::FromImage($bmp); $g.InterpolationMode = 'HighQua
 $g.DrawImage($img, 0, 0, 700, 980)
 Save-Jpeg $bmp 'products/bestseller.jpg'
 $g.Dispose(); $bmp.Dispose(); $img.Dispose()
+
+# ครอปภาพโรงงานจากสไลด์ให้เป็นภาพสี่เหลี่ยม (ไม่มีขอบวงกลม) ใช้ในหน้าแรก
+$wide = @(
+  @('factory/film-roll-wide.jpg',       '1.png', 1156, 307, 408, 306, 600),
+  @('factory/thickness-gauge-wide.jpg', '8.png',  789, 798, 192, 144, 400)
+)
+foreach ($j in $wide) {
+  $img = [System.Drawing.Image]::FromFile((Join-Path $Src $j[1]))
+  $w = [int]$j[4]; $h = [int]$j[5]; $scale = [Math]::Min(1.0, [int]$j[6] / $w)
+  $bmp = New-Object System.Drawing.Bitmap ([int]($w * $scale)), ([int]($h * $scale))
+  $g = [System.Drawing.Graphics]::FromImage($bmp); $g.InterpolationMode = 'HighQualityBicubic'
+  $g.DrawImage($img, (New-Object System.Drawing.Rectangle 0, 0, $bmp.Width, $bmp.Height), (New-Object System.Drawing.Rectangle $j[2], $j[3], $w, $h), 'Pixel')
+  Save-Jpeg $bmp $j[0]
+  $g.Dispose(); $bmp.Dispose(); $img.Dispose()
+}
+
+# ภาพสินค้าแบรนด์ SUMO อยู่ในไฟล์ zip อ่านจาก zip ตรงๆ ไม่แตกไฟล์ลง inbox
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$sumo = @(
+  # output path, zip file, entry, output size (square)
+  @('sumo/heavy.jpg',  'รูปภาพถุงขยะดำ sumo.zip', '1.png', 600),
+  @('sumo/color.jpg',  'ถุงขยะสีต่างๆ.zip',        '1.png', 600),
+  @('sumo/roll.jpg',   'ถุงขยะม้วนดำ.zip',         '1.png', 600),
+  @('sumo/handle.jpg', 'ถุงขยะดำหูหิ้ว.zip',       '1.png', 600)
+)
+foreach ($j in $sumo) {
+  $zip = [System.IO.Compression.ZipFile]::OpenRead((Join-Path $Src $j[1]))
+  $stream = ($zip.Entries | Where-Object { $_.FullName -eq $j[2] }).Open()
+  $img = [System.Drawing.Image]::FromStream($stream)
+  $size = [int]$j[3]
+  $bmp = New-Object System.Drawing.Bitmap $size, $size
+  $g = [System.Drawing.Graphics]::FromImage($bmp); $g.InterpolationMode = 'HighQualityBicubic'
+  $g.DrawImage($img, 0, 0, $size, $size)
+  Save-Jpeg $bmp $j[0]
+  $g.Dispose(); $bmp.Dispose(); $img.Dispose(); $stream.Dispose(); $zip.Dispose()
+}
 
 Get-ChildItem $Out -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "{0} files, {1:N0} KB" -f $_.Count, ($_.Sum / 1KB) }
